@@ -6,18 +6,13 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#14181c">
-  <title>Episodic - Letterboxd for TV</title>
+  <title>Episodic - TV Episode Tracker</title>
   
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   
   <style>
-    /* ============================================================================ */
-    /* ULTIMATE EPISODIC - PRODUCTION-QUALITY CSS */
-    /* Mobile-first, Letterboxd-accurate, Premium UX */
-    /* ============================================================================ */
-    
     * {
       margin: 0;
       padding: 0;
@@ -25,101 +20,29 @@
       -webkit-tap-highlight-color: transparent;
     }
     
-    :root {
-      /* Letterboxd Colors */
-      --bg-primary: #14181c;
-      --bg-secondary: #1c2329;
-      --bg-tertiary: #2c3440;
-      --text-primary: #fff;
-      --text-secondary: #9ab;
-      --text-tertiary: #678;
-      --accent-primary: #ff8000;
-      --accent-secondary: #ff6000;
-      --success: #00c896;
-      --error: #ff4444;
-      --warning: #ffb020;
-      
-      /* Spacing */
-      --space-xs: 4px;
-      --space-sm: 8px;
-      --space-md: 12px;
-      --space-lg: 16px;
-      --space-xl: 20px;
-      --space-2xl: 24px;
-      --space-3xl: 32px;
-      
-      /* Border Radius */
-      --radius-sm: 6px;
-      --radius-md: 8px;
-      --radius-lg: 12px;
-      --radius-xl: 16px;
-      --radius-full: 9999px;
-      
-      /* Shadows */
-      --shadow-sm: 0 2px 8px rgba(0,0,0,0.2);
-      --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
-      --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
-      
-      /* Z-index */
-      --z-base: 1;
-      --z-dropdown: 10;
-      --z-sticky: 50;
-      --z-modal-backdrop: 999;
-      --z-modal: 1000;
-      --z-toast: 2000;
-    }
-    
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      overscroll-behavior: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #14181c;
+      color: #fff;
       overflow-x: hidden;
     }
     
     #root {
       min-height: 100vh;
-      padding-bottom: calc(72px + env(safe-area-inset-bottom));
+      padding-bottom: 80px;
     }
 
-    /* Typography */
-    .text-xs { font-size: 11px; }
-    .text-sm { font-size: 13px; }
-    .text-base { font-size: 15px; }
-    .text-lg { font-size: 17px; }
-    .text-xl { font-size: 19px; }
-    .text-2xl { font-size: 24px; }
-    .text-3xl { font-size: 32px; }
-    
-    .font-normal { font-weight: 400; }
-    .font-medium { font-weight: 500; }
-    .font-semibold { font-weight: 600; }
-    .font-bold { font-weight: 700; }
-
-    /* Touch Targets */
-    button, a, [role="button"] {
-      min-height: 44px;
-      min-width: 44px;
-    }
-
-    /* Smooth Scrolling */
+    /* Smooth scrolling */
     * {
       -webkit-overflow-scrolling: touch;
     }
 
-    /* Hide Scrollbars */
+    /* Hide scrollbars */
     ::-webkit-scrollbar {
       display: none;
     }
 
     /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
     @keyframes slideUp {
       from {
         opacity: 0;
@@ -136,9 +59,9 @@
       to { transform: translateY(0); }
     }
 
-    @keyframes slideInFromRight {
-      from { transform: translateX(100%); }
-      to { transform: translateX(0); }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     @keyframes pulse {
@@ -146,52 +69,21 @@
       50% { opacity: 0.5; }
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-
     .animate-in {
-      animation: slideUp 0.3s ease-out;
-    }
-
-    .animate-fade {
-      animation: fadeIn 0.3s ease-out;
+      animation: slideUp 0.3s ease-out forwards;
     }
 
     .pulse {
       animation: pulse 2s infinite;
     }
 
-    .spinner {
-      animation: spin 1s linear infinite;
-    }
-
-    /* Skeleton Loader */
-    .skeleton {
-      background: linear-gradient(
-        90deg,
-        var(--bg-tertiary) 0%,
-        var(--bg-secondary) 50%,
-        var(--bg-tertiary) 100%
-      );
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-      border-radius: var(--radius-md);
-    }
-
     /* Bottom Sheet */
-    .bottom-sheet-overlay {
+    .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: var(--z-modal-backdrop);
-      backdrop-filter: blur(4px);
-      animation: fadeIn 0.2s ease-out;
+      background: rgba(0,0,0,0.7);
+      z-index: 999;
+      animation: fadeIn 0.2s;
     }
 
     .bottom-sheet {
@@ -199,318 +91,100 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: var(--bg-secondary);
-      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-      z-index: var(--z-modal);
+      background: #1c2329;
+      border-radius: 20px 20px 0 0;
+      z-index: 1000;
       animation: slideInFromBottom 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-      max-height: 90vh;
+      max-height: 85vh;
       overflow-y: auto;
-      box-shadow: var(--shadow-lg);
     }
 
-    .bottom-sheet-handle {
+    .sheet-handle {
       width: 40px;
       height: 4px;
-      background: var(--bg-tertiary);
-      border-radius: var(--radius-full);
-      margin: var(--space-md) auto;
+      background: #456;
+      border-radius: 2px;
+      margin: 12px auto;
     }
 
-    /* Story Bubbles (Instagram-style) */
-    .story-container {
-      display: flex;
-      gap: var(--space-lg);
-      overflow-x: auto;
-      padding: var(--space-lg) var(--space-xl);
-      scroll-snap-type: x mandatory;
-    }
-
-    .story-bubble {
-      flex-shrink: 0;
-      scroll-snap-align: start;
-    }
-
-    .story-ring {
-      padding: 3px;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      border-radius: var(--radius-full);
-    }
-
-    .story-inner {
-      background: var(--bg-primary);
-      border-radius: var(--radius-full);
-      padding: 2px;
-    }
-
-    /* Cards */
-    .card {
-      background: var(--bg-secondary);
-      border-radius: var(--radius-lg);
-      padding: var(--space-lg);
-      border: 1px solid var(--bg-tertiary);
-    }
-
-    .card-hover {
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .card-hover:active {
-      transform: scale(0.98);
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: var(--space-sm);
-      padding: var(--space-md) var(--space-xl);
-      border: none;
-      border-radius: var(--radius-lg);
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      min-height: 48px;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      color: var(--bg-primary);
-    }
-
-    .btn-primary:active {
-      transform: scale(0.96);
-    }
-
-    .btn-secondary {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-secondary);
-    }
-
-    /* Inputs */
-    .input {
-      width: 100%;
-      padding: var(--space-md) var(--space-lg);
-      background: var(--bg-tertiary);
-      border: 1px solid transparent;
-      border-radius: var(--radius-lg);
-      color: var(--text-primary);
-      font-size: 15px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .input:focus {
-      border-color: var(--accent-primary);
-    }
-
-    /* Badge */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-xs);
-      padding: 4px 10px;
-      border-radius: var(--radius-full);
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .badge-live {
-      background: rgba(255, 68, 68, 0.1);
-      border: 1px solid var(--error);
-      color: var(--error);
-    }
-
-    .badge-new {
-      background: rgba(0, 224, 84, 0.1);
-      border: 1px solid var(--success);
-      color: var(--success);
-    }
-
-    /* Rating Stars */
-    .star-rating {
-      display: inline-flex;
-      gap: 2px;
-    }
-
-    .star {
-      width: 16px;
-      height: 16px;
-      cursor: pointer;
-      transition: transform 0.1s;
-    }
-
-    .star:active {
-      transform: scale(1.2);
-    }
-
-    /* Avatar */
-    .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius-full);
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: var(--bg-primary);
-      flex-shrink: 0;
-    }
-
-    .avatar-sm { width: 32px; height: 32px; font-size: 13px; }
-    .avatar-md { width: 40px; height: 40px; font-size: 16px; }
-    .avatar-lg { width: 64px; height: 64px; font-size: 24px; }
-    .avatar-xl { width: 80px; height: 80px; font-size: 32px; }
-
-    /* FAB (Floating Action Button) */
-    .fab {
-      position: fixed;
-      bottom: calc(88px + env(safe-area-inset-bottom));
-      right: var(--space-xl);
-      width: 56px;
-      height: 56px;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      border: none;
-      border-radius: var(--radius-full);
-      color: var(--bg-primary);
-      box-shadow: var(--shadow-lg);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-center;
-      z-index: var(--z-dropdown);
-      transition: transform 0.2s;
-    }
-
-    .fab:active {
-      transform: scale(0.9);
-    }
-
-    /* Bottom Navigation */
+    /* Bottom Nav */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: var(--bg-secondary);
-      border-top: 1px solid var(--bg-tertiary);
+      background: #1c2329;
+      border-top: 1px solid #2c3440;
       display: flex;
-      justify-content: space-around;
-      padding-top: var(--space-sm);
-      padding-bottom: max(var(--space-sm), env(safe-area-inset-bottom));
-      z-index: var(--z-sticky);
+      z-index: 100;
+      padding-bottom: env(safe-area-inset-bottom);
     }
 
-    .nav-item {
+    .nav-btn {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: var(--space-xs);
-      padding: var(--space-sm);
+      gap: 4px;
+      padding: 12px;
       background: none;
       border: none;
-      color: var(--text-secondary);
+      color: #9ab;
       cursor: pointer;
       transition: color 0.2s;
     }
 
-    .nav-item.active {
-      color: var(--accent-primary);
+    .nav-btn.active {
+      color: #ff8000;
     }
 
-    .nav-item .icon {
-      width: 24px;
-      height: 24px;
+    /* Story Bubbles */
+    .stories {
+      display: flex;
+      gap: 16px;
+      padding: 16px 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
     }
 
-    .nav-item .label {
-      font-size: 11px;
-      font-weight: 500;
+    .story {
+      flex-shrink: 0;
+      text-align: center;
+      scroll-snap-align: start;
     }
 
-    /* Notification Dot */
-    .notification-dot {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 8px;
-      height: 8px;
-      background: var(--error);
-      border: 2px solid var(--bg-secondary);
-      border-radius: var(--radius-full);
+    .story-ring {
+      width: 68px;
+      height: 68px;
+      padding: 3px;
+      background: linear-gradient(135deg, #ff8000, #ff6000);
+      border-radius: 50%;
+      margin-bottom: 8px;
     }
 
-    /* Pull to Refresh Indicator */
-    .pull-refresh {
-      position: absolute;
-      top: -60px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 40px;
-      height: 40px;
+    .story-inner {
+      width: 100%;
+      height: 100%;
+      background: #14181c;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: top 0.3s;
-    }
-
-    .pull-refresh.active {
-      top: 20px;
-    }
-
-    /* Toast Notification */
-    .toast {
-      position: fixed;
-      bottom: calc(88px + env(safe-area-inset-bottom));
-      left: var(--space-lg);
-      right: var(--space-lg);
-      background: var(--bg-secondary);
-      padding: var(--space-lg);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lg);
-      z-index: var(--z-toast);
-      animation: slideUp 0.3s ease-out;
-      border: 1px solid var(--bg-tertiary);
-    }
-
-    /* Trending Badge */
-    .trending-badge {
-      position: absolute;
-      top: var(--space-sm);
-      right: var(--space-sm);
-      background: linear-gradient(135deg, #ff4444, #ff6666);
-      color: white;
-      padding: 4px 8px;
-      border-radius: var(--radius-sm);
-      font-size: 10px;
+      font-size: 24px;
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      box-shadow: var(--shadow-sm);
+      color: #ff8000;
     }
 
-    /* Swipeable Container */
-    .swipeable {
-      scroll-snap-type: x mandatory;
-      overflow-x: auto;
-      display: flex;
-      gap: var(--space-md);
+    /* Cards */
+    .card {
+      background: #1c2329;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 1px solid #2c3440;
     }
 
-    .swipeable-item {
-      scroll-snap-align: center;
-      flex-shrink: 0;
-    }
-
-    /* Desktop Responsive */
+    /* Desktop responsive */
     @media (min-width: 768px) {
       #root {
         max-width: 480px;
@@ -519,75 +193,48 @@
       }
     }
 
-    /* Lucide Icons */
-    .lucide {
-      width: 1em;
-      height: 1em;
-      display: inline-block;
-      vertical-align: middle;
+    /* Icons */
+    .icon {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
-    /* Utility Classes */
-    .flex { display: flex; }
-    .flex-col { flex-direction: column; }
-    .items-center { align-items: center; }
-    .justify-center { justify-content: center; }
-    .justify-between { justify-content: space-between; }
-    .gap-xs { gap: var(--space-xs); }
-    .gap-sm { gap: var(--space-sm); }
-    .gap-md { gap: var(--space-md); }
-    .gap-lg { gap: var(--space-lg); }
-    .gap-xl { gap: var(--space-xl); }
-    
-    .p-sm { padding: var(--space-sm); }
-    .p-md { padding: var(--space-md); }
-    .p-lg { padding: var(--space-lg); }
-    .p-xl { padding: var(--space-xl); }
-    
-    .m-sm { margin: var(--space-sm); }
-    .m-md { margin: var(--space-md); }
-    .m-lg { margin: var(--space-lg); }
-    .m-xl { margin: var(--space-xl); }
-    
-    .mb-xs { margin-bottom: var(--space-xs); }
-    .mb-sm { margin-bottom: var(--space-sm); }
-    .mb-md { margin-bottom: var(--space-md); }
-    .mb-lg { margin-bottom: var(--space-lg); }
-    .mb-xl { margin-bottom: var(--space-xl); }
-    .mb-2xl { margin-bottom: var(--space-2xl); }
-    .mb-3xl { margin-bottom: var(--space-3xl); }
-    
-    .text-center { text-align: center; }
-    .w-full { width: 100%; }
-    .h-full { height: 100%; }
-    
-    .cursor-pointer { cursor: pointer; }
-    .overflow-hidden { overflow: hidden; }
-    .relative { position: relative; }
-    .absolute { position: absolute; }
-    .fixed { position: fixed; }
-    
-    .grid { display: grid; }
-    .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
-    .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+    /* FAB */
+    .fab {
+      position: fixed;
+      bottom: 96px;
+      right: 20px;
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #ff8000, #ff6000);
+      border: none;
+      border-radius: 50%;
+      color: #14181c;
+      box-shadow: 0 8px 24px rgba(255,128,0,0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+
+    .fab:active {
+      transform: scale(0.9);
+    }
   </style>
 </head>
 <body>
   <div id="root"></div>
   
   <script type="text/babel">
-    const { useState, useEffect, useRef, useMemo } = React;
+    const { useState, useMemo } = React;
 
-    // ============================================================================
-    // ULTIMATE EPISODIC v3.0 - THE DEFINITIVE VERSION
-    // ============================================================================
-    // ✅ Full Letterboxd feature parity
-    // ✅ Premium mobile UX (Instagram/TikTok quality)
-    // ✅ Complete user requirements (hot takes, reality TV, watching now)
-    // ✅ Production-ready code
-    // ============================================================================
-
-    // COMPREHENSIVE MOCK DATA
+    // Mock Data
     const SHOWS = {
       loveIsland: {
         id: 1,
@@ -597,8 +244,7 @@
         backdrop: 'https://image.tmdb.org/t/p/w1280/rCqYXh6ztQLpC1BKW3KF0v3DXNP.jpg',
         genre: 'Reality',
         rating: 7.2,
-        trending: true,
-        tags: ['Reality', 'Romance', 'Competition']
+        trending: true
       },
       bachelor: {
         id: 2,
@@ -608,8 +254,7 @@
         backdrop: 'https://image.tmdb.org/t/p/w1280/jKOuF93E4sjkCYKYMxcjHNKcMXJ.jpg',
         genre: 'Reality',
         rating: 6.8,
-        trending: true,
-        tags: ['Reality', 'Romance', 'Dating']
+        trending: true
       },
       survivor: {
         id: 3,
@@ -619,8 +264,7 @@
         backdrop: 'https://image.tmdb.org/t/p/w1280/zcMz1BKuP6kZlOsF3Ckd4EAF2jg.jpg',
         genre: 'Reality',
         rating: 7.6,
-        trending: true,
-        tags: ['Reality', 'Competition', 'Adventure']
+        trending: true
       },
       snl: {
         id: 4,
@@ -629,20 +273,16 @@
         poster: 'https://image.tmdb.org/t/p/w500/sHGuKFjIBisPk8cvtCZTDVktYfs.jpg',
         backdrop: 'https://image.tmdb.org/t/p/w1280/iM8kss04YCaGPXJqBkS4rHZbJTW.jpg',
         genre: 'Comedy',
-        rating: 7.1,
-        trending: false,
-        tags: ['Comedy', 'Sketch', 'Live']
+        rating: 7.1
       },
       housewives: {
         id: 5,
-        name: 'Real Housewives BH',
+        name: 'Real Housewives',
         year: '2010',
         poster: 'https://image.tmdb.org/t/p/w500/jCWYWV0TquevYfiJ6pJkGq3Qzhe.jpg',
         backdrop: 'https://image.tmdb.org/t/p/w1280/1TS0T3WEH9bJWCBYV3DykNqhXTi.jpg',
         genre: 'Reality',
-        rating: 7.5,
-        trending: false,
-        tags: ['Reality', 'Drama', 'Lifestyle']
+        rating: 7.5
       },
       breakingBad: {
         id: 6,
@@ -651,371 +291,153 @@
         poster: 'https://image.tmdb.org/t/p/w500/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg',
         backdrop: 'https://image.tmdb.org/t/p/w1280/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg',
         genre: 'Drama',
-        rating: 8.9,
-        trending: false,
-        tags: ['Drama', 'Crime', 'Thriller']
+        rating: 8.9
       }
     };
 
     const EPISODES = [
-      {
-        id: 1,
-        showId: 1,
-        season: 6,
-        episode: 1,
-        name: 'First Coupling',
-        image: 'https://image.tmdb.org/t/p/w500/h9f3vNGZGDRqOw26uwDMYhSLZ01.jpg',
-        date: 'Jan 13',
-        dateObj: new Date('2025-01-13'),
-        rating: 7.8,
-        description: 'The Islanders arrive and couple up for the first time. Drama begins immediately.'
-      },
-      {
-        id: 2,
-        showId: 1,
-        season: 6,
-        episode: 2,
-        name: 'Recoupling Chaos',
-        image: 'https://image.tmdb.org/t/p/w500/rCqYXh6ztQLpC1BKW3KF0v3DXNP.jpg',
-        date: 'Jan 14',
-        dateObj: new Date('2025-01-14'),
-        rating: 8.2,
-        description: 'First recoupling ceremony brings unexpected twists and broken hearts.'
-      },
-      {
-        id: 3,
-        showId: 1,
-        season: 6,
-        episode: 3,
-        name: 'Bombshell Entry',
-        image: 'https://image.tmdb.org/t/p/w500/h9f3vNGZGDRqOw26uwDMYhSLZ01.jpg',
-        date: 'Jan 15',
-        dateObj: new Date('2025-01-15'),
-        rating: 8.5,
-        description: 'A new bombshell enters the villa and shakes up existing relationships.'
-      },
-      {
-        id: 4,
-        showId: 2,
-        season: 28,
-        episode: 1,
-        name: 'Week 1',
-        image: 'https://image.tmdb.org/t/p/w500/jKOuF93E4sjkCYKYMxcjHNKcMXJ.jpg',
-        date: 'Jan 27',
-        dateObj: new Date('2025-01-27'),
-        rating: 7.6,
-        description: 'Joey meets 32 women on night one. Who gets the first impression rose?'
-      },
-      {
-        id: 5,
-        showId: 3,
-        season: 46,
-        episode: 1,
-        name: 'Hot Mess Express',
-        image: 'https://image.tmdb.org/t/p/w500/zcMz1BKuP6kZlOsF3Ckd4EAF2jg.jpg',
-        date: 'Feb 26',
-        dateObj: new Date('2025-02-26'),
-        rating: 8.3,
-        description: 'Eighteen new castaways begin their battle for $1 million and the title.'
-      },
-      {
-        id: 6,
-        showId: 4,
-        season: 50,
-        episode: 2,
-        name: 'Nate Bargatze',
-        image: 'https://image.tmdb.org/t/p/w500/3REhPBPbNnIdHSBsqFxSe5TJNHd.jpg',
-        date: 'Oct 5',
-        dateObj: new Date('2024-10-05'),
-        rating: 8.9,
-        description: 'Nate hosts with Coldplay. Features viral "Washington\'s Dream" sketch.'
-      },
-      {
-        id: 7,
-        showId: 4,
-        season: 50,
-        episode: 5,
-        name: 'John Mulaney',
-        image: 'https://image.tmdb.org/t/p/w500/5bQ5TynqtB6yIrxHx8mYFmBiDfC.jpg',
-        date: 'Nov 2',
-        dateObj: new Date('2024-11-02'),
-        rating: 9.5,
-        description: 'John returns for sixth time with Chappell Roan. Musical sketches dominate.'
-      }
+      { id: 1, showId: 1, season: 6, episode: 1, name: 'First Coupling', image: 'https://image.tmdb.org/t/p/w500/h9f3vNGZGDRqOw26uwDMYhSLZ01.jpg', date: 'Jan 13', rating: 7.8, desc: 'Islanders arrive and couple up for first time. Drama begins immediately.' },
+      { id: 2, showId: 1, season: 6, episode: 2, name: 'Recoupling Chaos', image: 'https://image.tmdb.org/t/p/w500/rCqYXh6ztQLpC1BKW3KF0v3DXNP.jpg', date: 'Jan 14', rating: 8.2, desc: 'First recoupling brings unexpected twists and broken hearts.' },
+      { id: 3, showId: 1, season: 6, episode: 3, name: 'Bombshell Entry', image: 'https://image.tmdb.org/t/p/w500/h9f3vNGZGDRqOw26uwDMYhSLZ01.jpg', date: 'Jan 15', rating: 8.5, desc: 'New bombshell enters and shakes up relationships.' },
+      { id: 4, showId: 2, season: 28, episode: 1, name: 'Week 1', image: 'https://image.tmdb.org/t/p/w500/jKOuF93E4sjkCYKYMxcjHNKcMXJ.jpg', date: 'Jan 27', rating: 7.6, desc: 'Joey meets 32 women. Who gets first impression rose?' },
+      { id: 5, showId: 3, season: 46, episode: 1, name: 'Hot Mess Express', image: 'https://image.tmdb.org/t/p/w500/zcMz1BKuP6kZlOsF3Ckd4EAF2jg.jpg', date: 'Feb 26', rating: 8.3, desc: 'Eighteen castaways begin battle for $1 million.' },
+      { id: 6, showId: 4, season: 50, episode: 2, name: 'Nate Bargatze', image: 'https://image.tmdb.org/t/p/w500/3REhPBPbNnIdHSBsqFxSe5TJNHd.jpg', date: 'Oct 5', rating: 8.9, desc: 'Nate hosts with Coldplay. Viral Washington\'s Dream sketch.' },
+      { id: 7, showId: 4, season: 50, episode: 5, name: 'John Mulaney', image: 'https://image.tmdb.org/t/p/w500/5bQ5TynqtB6yIrxHx8mYFmBiDfC.jpg', date: 'Nov 2', rating: 9.5, desc: 'John returns for sixth time. Musical sketches dominate.' }
     ];
 
     const USERS = {
-      current: {
-        id: 'user-1',
-        username: 'tvlover',
-        displayName: 'TV Lover',
-        bio: 'Reality TV junkie 📺 | SNL superfan | Hot takes only 🔥',
-        avatar: null,
-        following: ['user-2', 'user-3']
-      },
-      'user-2': {
-        id: 'user-2',
-        username: 'realityfan',
-        displayName: 'Reality Fan',
-        bio: 'Love Island obsessed 🌴',
-        avatar: null
-      },
-      'user-3': {
-        id: 'user-3',
-        username: 'snlstan',
-        displayName: 'SNL Stan',
-        bio: 'Been watching since 1975 📺',
-        avatar: null
-      },
-      'user-4': {
-        id: 'user-4',
-        username: 'bachelor_nation',
-        displayName: 'Bachelor Nation',
-        bio: 'Here for the right reasons 🌹',
-        avatar: null
-      }
+      current: { id: '1', username: 'tvlover', name: 'TV Lover' },
+      user2: { id: '2', username: 'realityfan', name: 'Reality Fan' },
+      user3: { id: '3', username: 'snlstan', name: 'SNL Stan' }
     };
 
     const HOT_TAKES = [
-      {
-        id: 1,
-        userId: 'user-2',
-        episodeId: 3,
-        content: 'OMG THAT BOMBSHELL ENTRANCE 😱 This is already the best season of Love Island',
-        timestamp: new Date(Date.now() - 15 * 60000),
-        reactions: { fire: 23, skull: 5, eyes: 12 },
-        isLive: false
-      },
-      {
-        id: 2,
-        userId: 'user-1',
-        episodeId: 7,
-        content: 'John Mulaney is a GENERATIONAL talent 🔥 Best SNL host in years don\'t @ me',
-        timestamp: new Date(Date.now() - 2 * 3600000),
-        reactions: { fire: 45, heart: 28 },
-        isLive: false
-      },
-      {
-        id: 3,
-        userId: 'user-4',
-        episodeId: 4,
-        content: '🔴 WATCHING NOW: This rose ceremony is taking FOREVER 🌹 Send her home already',
-        timestamp: new Date(Date.now() - 3 * 60000),
-        reactions: { laugh: 8, eyes: 3 },
-        isLive: true
-      },
-      {
-        id: 4,
-        userId: 'user-3',
-        episodeId: 6,
-        content: 'Washington\'s Dream sketch >>>>> everything else. Nate Bargatze killed it 💀',
-        timestamp: new Date(Date.now() - 5 * 3600000),
-        reactions: { fire: 34, laugh: 19 },
-        isLive: false
-      }
+      { id: 1, userId: '2', episodeId: 3, content: 'OMG THAT BOMBSHELL ENTRANCE 😱 This is already the best season', time: '15m ago', reactions: { fire: 23, skull: 5 }, isLive: false },
+      { id: 2, userId: '1', episodeId: 7, content: 'John Mulaney is a GENERATIONAL talent 🔥 Best SNL host in years', time: '2h ago', reactions: { fire: 45 }, isLive: false },
+      { id: 3, userId: '3', episodeId: 4, content: '🔴 WATCHING NOW: This rose ceremony taking FOREVER 🌹', time: '3m ago', reactions: { laugh: 8 }, isLive: true },
+      { id: 4, userId: '2', episodeId: 6, content: 'Washington\'s Dream sketch >>>>> Best SNL moment this season 💀', time: '5h ago', reactions: { fire: 34 }, isLive: false }
     ];
 
     const WATCHING_NOW = [
-      { userId: 'user-2', episodeId: 2, startedAt: Date.now() - 15 * 60000 },
-      { userId: 'user-4', episodeId: 4, startedAt: Date.now() - 8 * 60000 }
+      { userId: '2', episodeId: 2 },
+      { userId: '3', episodeId: 4 }
     ];
 
-    // Global State
-    const mockStorage = {
+    const storage = {
       ratings: {},
-      watchlist: [1, 2, 3],
-      diary: [],
-      lists: [
-        {
-          id: 1,
-          name: 'Best Reality TV Moments',
-          description: 'The most iconic reality TV episodes',
-          episodes: [3, 5],
-          isPublic: true
-        }
-      ]
+      watchingNow: []
     };
 
     // Icon Component
-    const Icon = ({ name, size = 24, ...props }) => {
+    const Icon = ({ name, size = 24 }) => {
       const icons = {
-        Home: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>,
-        Flame: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>,
-        Activity: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>,
-        Calendar: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>,
-        User: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>,
-        Search: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>,
-        Star: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>,
-        Plus: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>,
-        ChevronLeft: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"></polyline></svg>,
-        ChevronRight: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"></polyline></svg>,
-        Heart: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>,
-        MessageCircle: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>,
-        Bookmark: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>,
-        List: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>,
-        TrendingUp: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>,
-        Eye: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>,
-        X: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>,
-        Send: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>,
+        Home: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>,
+        Flame: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>,
+        User: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>,
+        Search: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>,
+        Star: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
+        ChevronLeft: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>,
+        Plus: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
+        X: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       };
-      return <span className="lucide" style={{ ...props.style }}>{icons[name]}</span>;
+      return icons[name];
     };
 
-    // ============================================================================
-    // MAIN APP
-    // ============================================================================
+    // Main App
     function App() {
-      const [activeTab, setActiveTab] = useState('home');
-      const [selectedShow, setSelectedShow] = useState(null);
-      const [showComposer, setShowComposer] = useState(false);
+      const [tab, setTab] = useState('home');
+      const [show, setShow] = useState(null);
+      const [composer, setComposer] = useState(false);
 
       return (
         <div>
-          {selectedShow ? (
-            <ShowView show={selectedShow} onBack={() => setSelectedShow(null)} />
+          {show ? (
+            <ShowView show={show} onBack={() => setShow(null)} />
           ) : (
             <>
-              {activeTab === 'home' && <HomeView onSelectShow={setSelectedShow} onCompose={() => setShowComposer(true)} />}
-              {activeTab === 'hot-takes' && <HotTakesView onSelectShow={setSelectedShow} onCompose={() => setShowComposer(true)} />}
-              {activeTab === 'activity' && <ActivityView onSelectShow={setSelectedShow} />}
-              {activeTab === 'diary' && <DiaryView onSelectShow={setSelectedShow} />}
-              {activeTab === 'profile' && <ProfileView />}
+              {tab === 'home' && <Home onSelect={setShow} />}
+              {tab === 'hot-takes' && <HotTakes onSelect={setShow} onCompose={() => setComposer(true)} />}
+              {tab === 'profile' && <Profile />}
             </>
           )}
           
-          {!selectedShow && <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />}
-          {showComposer && <HotTakeComposer onClose={() => setShowComposer(false)} />}
+          {!show && <BottomNav tab={tab} onChange={setTab} />}
+          {composer && <Composer onClose={() => setComposer(false)} />}
         </div>
       );
     }
 
-    // ============================================================================
-    // BOTTOM NAVIGATION
-    // ============================================================================
-    function BottomNav({ activeTab, onTabChange }) {
-      const tabs = [
-        { id: 'home', icon: 'Home', label: 'Home' },
-        { id: 'hot-takes', icon: 'Flame', label: 'Hot Takes' },
-        { id: 'activity', icon: 'Activity', label: 'Activity' },
-        { id: 'diary', icon: 'Calendar', label: 'Diary' },
-        { id: 'profile', icon: 'User', label: 'You' }
-      ];
-
+    // Bottom Nav
+    function BottomNav({ tab, onChange }) {
       return (
         <nav className="bottom-nav">
-          {tabs.map(tab => (
+          {[
+            { id: 'home', icon: 'Home', label: 'Home' },
+            { id: 'hot-takes', icon: 'Flame', label: 'Hot Takes' },
+            { id: 'profile', icon: 'User', label: 'Profile' }
+          ].map(item => (
             <button
-              key={tab.id}
-              className={`nav-item ${activeTab === tab.id ? 'active' : ''}`}
-              onClick={() => onTabChange(tab.id)}
+              key={item.id}
+              className={`nav-btn ${tab === item.id ? 'active' : ''}`}
+              onClick={() => onChange(item.id)}
             >
-              <Icon name={tab.icon} className="icon" />
-              <span className="label">{tab.label}</span>
+              <Icon name={item.icon} size={24} />
+              <span style={{ fontSize: '11px', fontWeight: '500' }}>{item.label}</span>
             </button>
           ))}
         </nav>
       );
     }
 
-    // ============================================================================
-    // HOME VIEW
-    // ============================================================================
-    function HomeView({ onSelectShow, onCompose }) {
-      const [searchQuery, setSearchQuery] = useState('');
-      const [searchResults, setSearchResults] = useState([]);
+    // Home View
+    function Home({ onSelect }) {
+      const [search, setSearch] = useState('');
+      const [results, setResults] = useState([]);
 
-      const trendingShows = useMemo(() => 
-        Object.values(SHOWS).filter(s => s.trending), 
-        []
-      );
+      const trending = useMemo(() => Object.values(SHOWS).filter(s => s.trending), []);
+      const reality = useMemo(() => Object.values(SHOWS).filter(s => s.genre === 'Reality'), []);
 
-      const realityShows = useMemo(() =>
-        Object.values(SHOWS).filter(s => s.genre === 'Reality'),
-        []
-      );
-
-      function handleSearch(query) {
-        setSearchQuery(query);
-        if (!query.trim()) {
-          setSearchResults([]);
+      function handleSearch(q) {
+        setSearch(q);
+        if (!q.trim()) {
+          setResults([]);
           return;
         }
-        const results = Object.values(SHOWS).filter(show =>
-          show.name.toLowerCase().includes(query.toLowerCase())
-        );
-        setSearchResults(results);
+        setResults(Object.values(SHOWS).filter(s => s.name.toLowerCase().includes(q.toLowerCase())));
       }
 
       return (
-        <div style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
+        <div style={{ minHeight: '100vh', background: '#14181c' }}>
           {/* Header */}
-          <div style={{
-            position: 'sticky',
-            top: 0,
-            background: 'var(--bg-primary)',
-            borderBottom: '1px solid var(--bg-tertiary)',
-            padding: 'var(--space-lg) var(--space-xl)',
-            zIndex: 'var(--z-sticky)'
-          }}>
-            <h1 className="text-3xl font-bold mb-md" style={{
-              background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
-            }}>
+          <div style={{ position: 'sticky', top: 0, background: '#14181c', borderBottom: '1px solid #2c3440', padding: '16px 20px', zIndex: 50 }}>
+            <h1 style={{ fontSize: '28px', fontWeight: '700', background: 'linear-gradient(135deg, #ff8000, #ff6000)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '12px' }}>
               Episodic
             </h1>
             
             <div style={{ position: 'relative' }}>
-              <div className="flex items-center gap-md" style={{
-                background: 'var(--bg-tertiary)',
-                borderRadius: 'var(--radius-lg)',
-                padding: 'var(--space-md) var(--space-lg)'
-              }}>
-                <Icon name="Search" size={20} style={{ color: 'var(--text-secondary)' }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: '#2c3440', borderRadius: '12px', padding: '12px 16px' }}>
+                <Icon name="Search" size={20} />
                 <input
                   type="text"
                   placeholder="Search shows..."
-                  value={searchQuery}
+                  value={search}
                   onChange={(e) => handleSearch(e.target.value)}
-                  className="text-base"
-                  style={{
-                    flex: 1,
-                    background: 'none',
-                    border: 'none',
-                    color: 'var(--text-primary)',
-                    outline: 'none'
-                  }}
+                  style={{ flex: 1, background: 'none', border: 'none', color: '#fff', fontSize: '16px', outline: 'none' }}
                 />
               </div>
 
-              {searchResults.length > 0 && (
-                <div className="card animate-fade" style={{
-                  position: 'absolute',
-                  top: '100%',
-                  left: 0,
-                  right: 0,
-                  marginTop: 'var(--space-sm)',
-                  maxHeight: '400px',
-                  overflowY: 'auto',
-                  zIndex: 100
-                }}>
-                  {searchResults.map(show => (
+              {results.length > 0 && (
+                <div className="card" style={{ position: 'absolute', top: '100%', left: 0, right: 0, marginTop: '8px', zIndex: 100, animation: 'fadeIn 0.2s' }}>
+                  {results.map(s => (
                     <button
-                      key={show.id}
-                      onClick={() => { onSelectShow(show); setSearchResults([]); setSearchQuery(''); }}
-                      className="flex items-center gap-md w-full"
-                      style={{
-                        padding: 'var(--space-md)',
-                        background: 'transparent',
-                        border: 'none',
-                        cursor: 'pointer',
-                        textAlign: 'left'
-                      }}
+                      key={s.id}
+                      onClick={() => { onSelect(s); setResults([]); setSearch(''); }}
+                      style={{ width: '100%', display: 'flex', gap: '12px', padding: '12px', background: 'transparent', border: 'none', cursor: 'pointer', textAlign: 'left' }}
                     >
-                      <img src={show.poster} alt={show.name} style={{ width: '40px', height: '60px', borderRadius: 'var(--radius-sm)', objectFit: 'cover' }} />
-                      <div style={{ flex: 1 }}>
-                        <div className="text-base font-semibold" style={{ color: 'var(--text-primary)', marginBottom: '2px' }}>{show.name}</div>
-                        <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>{show.year} • {show.genre}</div>
+                      <img src={s.poster} alt={s.name} style={{ width: '40px', height: '60px', borderRadius: '6px', objectFit: 'cover' }} />
+                      <div>
+                        <div style={{ color: '#fff', fontSize: '14px', fontWeight: '600' }}>{s.name}</div>
+                        <div style={{ color: '#9ab', fontSize: '12px' }}>{s.year} • {s.genre}</div>
                       </div>
                     </button>
                   ))}
@@ -1024,22 +446,17 @@
             </div>
           </div>
 
-          {/* Story Bubbles (Watching Now) */}
+          {/* Stories */}
           {WATCHING_NOW.length > 0 && (
-            <div className="story-container">
-              {WATCHING_NOW.map((watching, idx) => {
-                const user = USERS[watching.userId];
-                const episode = EPISODES.find(e => e.id === watching.episodeId);
-                if (!user || !episode) return null;
-                
+            <div className="stories">
+              {WATCHING_NOW.map((w, i) => {
+                const user = Object.values(USERS).find(u => u.id === w.userId);
                 return (
-                  <div key={idx} className="story-bubble">
+                  <div key={i} className="story">
                     <div className="story-ring pulse">
-                      <div className="story-inner">
-                        <div className="avatar-md">{user.username[0].toUpperCase()}</div>
-                      </div>
+                      <div className="story-inner">{user.username[0].toUpperCase()}</div>
                     </div>
-                    <div className="text-xs text-center" style={{ color: 'var(--text-secondary)', marginTop: 'var(--space-xs)', maxWidth: '64px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <div style={{ fontSize: '11px', color: '#9ab', maxWidth: '68px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {user.username}
                     </div>
                   </div>
@@ -1048,38 +465,32 @@
             </div>
           )}
 
-          {/* Content */}
-          <div style={{ padding: 'var(--space-xl)' }}>
-            <ShowSection title="🔥 Trending Today" shows={trendingShows} onSelectShow={onSelectShow} />
-            <ShowSection title="Reality TV" shows={realityShows} onSelectShow={onSelectShow} />
+          {/* Shows */}
+          <div style={{ padding: '20px' }}>
+            <Section title="🔥 Trending" shows={trending} onSelect={onSelect} />
+            <Section title="Reality TV" shows={reality} onSelect={onSelect} />
           </div>
-
-          {/* FAB */}
-          <button className="fab" onClick={onCompose}>
-            <Icon name="Plus" size={28} />
-          </button>
         </div>
       );
     }
 
-    function ShowSection({ title, shows, onSelectShow }) {
+    function Section({ title, shows, onSelect }) {
       return (
-        <div className="mb-3xl">
-          <h2 className="text-xl font-bold mb-lg" style={{ color: 'var(--text-primary)' }}>{title}</h2>
-          <div className="grid grid-cols-3 gap-md">
-            {shows.map((show, idx) => (
-              <div
-                key={show.id}
-                onClick={() => onSelectShow(show)}
-                className="cursor-pointer animate-in"
-                style={{ animationDelay: `${idx * 50}ms` }}
-              >
-                <div style={{ position: 'relative', paddingBottom: '150%', background: 'var(--bg-tertiary)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', marginBottom: 'var(--space-sm)' }}>
-                  <img src={show.poster} alt={show.name} style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover' }} />
-                  {show.trending && <div className="trending-badge">TRENDING</div>}
+        <div style={{ marginBottom: '32px' }}>
+          <h2 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '16px' }}>{title}</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+            {shows.map((s, i) => (
+              <div key={s.id} onClick={() => onSelect(s)} className="animate-in" style={{ cursor: 'pointer', animationDelay: `${i * 50}ms` }}>
+                <div style={{ position: 'relative', paddingBottom: '150%', background: '#2c3440', borderRadius: '12px', overflow: 'hidden', marginBottom: '8px' }}>
+                  <img src={s.poster} alt={s.name} style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover' }} />
+                  {s.trending && (
+                    <div style={{ position: 'absolute', top: '8px', right: '8px', background: 'linear-gradient(135deg, #ff4444, #ff6666)', color: '#fff', padding: '4px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: '700' }}>
+                      HOT
+                    </div>
+                  )}
                 </div>
-                <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{show.name}</div>
-                <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>{show.year} • {show.genre}</div>
+                <div style={{ fontSize: '13px', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{s.name}</div>
+                <div style={{ fontSize: '11px', color: '#9ab' }}>{s.year} • {s.genre}</div>
               </div>
             ))}
           </div>
@@ -1087,47 +498,34 @@
       );
     }
 
-    // ============================================================================
-    // SHOW VIEW
-    // ============================================================================
+    // Show View
     function ShowView({ show, onBack }) {
-      const episodes = EPISODES.filter(e => e.showId === show.id);
-      const [selectedEpisode, setSelectedEpisode] = useState(null);
+      const eps = EPISODES.filter(e => e.showId === show.id);
+      const [selected, setSelected] = useState(null);
 
       return (
-        <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', paddingBottom: 'var(--space-xl)' }}>
+        <div style={{ minHeight: '100vh', background: '#14181c' }}>
           {/* Hero */}
-          <div style={{ position: 'relative', height: '300px', overflow: 'hidden' }}>
+          <div style={{ position: 'relative', height: '280px' }}>
             <img src={show.backdrop} alt={show.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(20,24,28,0.3), var(--bg-primary))' }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(20,24,28,0.3), #14181c)' }} />
             
             <button
               onClick={onBack}
-              className="btn-ghost"
-              style={{
-                position: 'absolute',
-                top: 'var(--space-lg)',
-                left: 'var(--space-lg)',
-                width: '48px',
-                height: '48px',
-                background: 'rgba(28,35,41,0.9)',
-                backdropFilter: 'blur(10px)',
-                borderRadius: 'var(--radius-full)',
-                padding: 0
-              }}
+              style={{ position: 'absolute', top: '16px', left: '16px', width: '48px', height: '48px', background: 'rgba(28,35,41,0.9)', backdropFilter: 'blur(10px)', border: 'none', borderRadius: '50%', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
               <Icon name="ChevronLeft" size={24} />
             </button>
 
-            <div style={{ position: 'absolute', bottom: 'var(--space-xl)', left: 'var(--space-xl)', right: 'var(--space-xl)' }}>
-              <h1 className="text-3xl font-bold mb-sm" style={{ color: 'var(--text-primary)', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>{show.name}</h1>
-              <div className="flex items-center gap-md text-sm" style={{ color: 'var(--text-primary)', textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
+            <div style={{ position: 'absolute', bottom: '20px', left: '20px', right: '20px' }}>
+              <h1 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px', textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>{show.name}</h1>
+              <div style={{ display: 'flex', gap: '12px', fontSize: '14px', textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
                 <span>{show.year}</span>
                 <span>•</span>
                 <span>{show.genre}</span>
                 <span>•</span>
-                <div className="flex items-center gap-xs">
-                  <Icon name="Star" size={14} style={{ color: 'var(--accent-primary)' }} />
+                <div style={{ display: 'flex', gap: '4px' }}>
+                  <Icon name="Star" size={14} />
                   <span>{show.rating}</span>
                 </div>
               </div>
@@ -1135,83 +533,77 @@
           </div>
 
           {/* Episodes */}
-          <div style={{ padding: 'var(--space-xl)' }}>
-            <h2 className="text-xl font-bold mb-lg" style={{ color: 'var(--text-primary)' }}>Episodes</h2>
-            {episodes.map((episode, idx) => (
-              <div
-                key={episode.id}
-                onClick={() => setSelectedEpisode(episode)}
-                className="card card-hover mb-md animate-in cursor-pointer"
-                style={{ animationDelay: `${idx * 50}ms` }}
-              >
-                <div className="flex gap-lg">
-                  <img src={episode.image} alt={episode.name} style={{ width: '120px', height: '68px', borderRadius: 'var(--radius-md)', objectFit: 'cover' }} />
+          <div style={{ padding: '20px' }}>
+            <h2 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '16px' }}>Episodes</h2>
+            {eps.map((ep, i) => (
+              <div key={ep.id} className="card animate-in" onClick={() => setSelected(ep)} style={{ cursor: 'pointer', animationDelay: `${i * 50}ms` }}>
+                <div style={{ display: 'flex', gap: '16px' }}>
+                  <img src={ep.image} alt={ep.name} style={{ width: '120px', height: '68px', borderRadius: '8px', objectFit: 'cover' }} />
                   <div style={{ flex: 1 }}>
-                    <div className="text-xs font-semibold mb-xs" style={{ color: 'var(--text-secondary)' }}>S{episode.season}E{episode.episode}</div>
-                    <div className="text-base font-semibold mb-xs" style={{ color: 'var(--text-primary)' }}>{episode.name}</div>
-                    <div className="flex items-center gap-md text-xs" style={{ color: 'var(--text-secondary)' }}>
-                      <span>{episode.date}</span>
-                      <span>•</span>
-                      <div className="flex items-center gap-xs">
-                        <Icon name="Star" size={12} style={{ color: 'var(--accent-primary)' }} />
-                        <span>{episode.rating}</span>
-                      </div>
-                    </div>
+                    <div style={{ fontSize: '11px', color: '#9ab', marginBottom: '4px' }}>S{ep.season}E{ep.episode}</div>
+                    <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '4px' }}>{ep.name}</div>
+                    <div style={{ fontSize: '12px', color: '#9ab' }}>{ep.date} • ⭐ {ep.rating}</div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          {selectedEpisode && <EpisodeModal episode={selectedEpisode} show={show} onClose={() => setSelectedEpisode(null)} />}
+          {selected && <EpisodeModal ep={selected} show={show} onClose={() => setSelected(null)} />}
         </div>
       );
     }
 
-    // ============================================================================
-    // EPISODE MODAL
-    // ============================================================================
-    function EpisodeModal({ episode, show, onClose }) {
-      const [rating, setRating] = useState(mockStorage.ratings[episode.id] || 0);
-      const [isWatching, setIsWatching] = useState(false);
+    // Episode Modal
+    function EpisodeModal({ ep, show, onClose }) {
+      const [rating, setRating] = useState(storage.ratings[ep.id] || 0);
+      const [watching, setWatching] = useState(false);
+      const [showComposer, setShowComposer] = useState(false);
+      const [showDiscussion, setShowDiscussion] = useState(false);
 
-      function handleRate(r) {
+      const episodeTakes = HOT_TAKES.filter(t => t.episodeId === ep.id);
+
+      function rate(r) {
         setRating(r);
-        mockStorage.ratings[episode.id] = r;
+        storage.ratings[ep.id] = r;
       }
 
       return (
         <>
-          <div className="bottom-sheet-overlay" onClick={onClose} />
+          <div className="overlay" onClick={onClose} />
           <div className="bottom-sheet">
-            <div className="bottom-sheet-handle" />
+            <div className="sheet-handle" />
             
-            <div style={{ padding: '0 var(--space-xl) var(--space-3xl)' }}>
-              <div className="flex gap-lg mb-xl">
-                <img src={episode.image} alt={episode.name} style={{ width: '120px', height: '68px', borderRadius: 'var(--radius-lg)', objectFit: 'cover' }} />
+            <div style={{ padding: '0 20px 32px' }}>
+              <div style={{ display: 'flex', gap: '16px', marginBottom: '20px' }}>
+                <img src={ep.image} alt={ep.name} style={{ width: '120px', height: '68px', borderRadius: '12px', objectFit: 'cover' }} />
                 <div style={{ flex: 1 }}>
-                  <div className="text-sm font-semibold mb-xs" style={{ color: 'var(--accent-primary)' }}>{show.name}</div>
-                  <div className="text-lg font-bold mb-xs" style={{ color: 'var(--text-primary)' }}>{episode.name}</div>
-                  <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>Season {episode.season}, Episode {episode.episode}</div>
+                  <div style={{ fontSize: '13px', color: '#ff8000', fontWeight: '600', marginBottom: '4px' }}>{show.name}</div>
+                  <div style={{ fontSize: '18px', fontWeight: '600', marginBottom: '4px' }}>{ep.name}</div>
+                  <div style={{ fontSize: '13px', color: '#9ab' }}>S{ep.season}E{ep.episode}</div>
                 </div>
               </div>
 
+              <div style={{ fontSize: '14px', color: '#9ab', lineHeight: '1.6', marginBottom: '20px' }}>{ep.desc}</div>
+
               {/* Rating */}
-              <div className="mb-xl">
-                <div className="text-base font-semibold mb-md" style={{ color: 'var(--text-primary)' }}>Rate this episode</div>
-                <div className="flex gap-sm justify-between">
+              <div style={{ marginBottom: '16px' }}>
+                <div style={{ fontSize: '15px', fontWeight: '600', marginBottom: '12px' }}>Rate this episode</div>
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                   {[0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5].map(r => (
                     <button
                       key={r}
-                      onClick={() => handleRate(r)}
-                      className="btn"
+                      onClick={() => rate(r)}
                       style={{
-                        flex: 1,
-                        minWidth: 0,
-                        padding: 'var(--space-sm)',
-                        background: rating >= r ? 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))' : 'var(--bg-tertiary)',
-                        color: rating >= r ? 'var(--bg-primary)' : 'var(--text-secondary)',
-                        fontSize: '13px'
+                        flex: '1 0 calc(20% - 6px)',
+                        minHeight: '44px',
+                        background: rating >= r ? 'linear-gradient(135deg, #ff8000, #ff6000)' : '#2c3440',
+                        border: 'none',
+                        borderRadius: '8px',
+                        color: rating >= r ? '#14181c' : '#9ab',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        cursor: 'pointer'
                       }}
                     >
                       {r}
@@ -1221,162 +613,160 @@
               </div>
 
               {/* Actions */}
-              <button
-                onClick={() => setIsWatching(!isWatching)}
-                className="btn btn-primary w-full mb-md"
-                style={{
-                  background: isWatching ? 'rgba(255,68,68,0.1)' : 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))',
-                  border: isWatching ? '2px solid var(--error)' : 'none',
-                  color: isWatching ? 'var(--error)' : 'var(--bg-primary)'
-                }}
-              >
-                {isWatching && <span className="pulse" style={{ width: '8px', height: '8px', borderRadius: 'var(--radius-full)', background: 'var(--error)' }} />}
-                {isWatching ? 'Watching Now' : 'Watch Now'}
-              </button>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
+                <button
+                  onClick={() => setWatching(!watching)}
+                  style={{
+                    minHeight: '56px',
+                    background: watching ? 'rgba(255,68,68,0.1)' : 'linear-gradient(135deg, #ff8000, #ff6000)',
+                    border: watching ? '2px solid #ff4444' : 'none',
+                    borderRadius: '12px',
+                    color: watching ? '#ff4444' : '#14181c',
+                    fontSize: '15px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '6px'
+                  }}
+                >
+                  {watching && <span className="pulse" style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ff4444' }} />}
+                  {watching ? 'Watching' : 'Watch'}
+                </button>
+
+                <button
+                  onClick={() => setShowComposer(true)}
+                  style={{
+                    minHeight: '56px',
+                    background: '#2c3440',
+                    border: 'none',
+                    borderRadius: '12px',
+                    color: '#fff',
+                    fontSize: '15px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px'
+                  }}
+                >
+                  🔥 Post Hot Take
+                </button>
+              </div>
+
+              {/* Discussion */}
+              {episodeTakes.length > 0 && (
+                <div>
+                  <button
+                    onClick={() => setShowDiscussion(!showDiscussion)}
+                    style={{
+                      width: '100%',
+                      padding: '16px',
+                      background: '#14181c',
+                      border: 'none',
+                      borderRadius: '12px',
+                      color: '#fff',
+                      fontSize: '15px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between'
+                    }}
+                  >
+                    <span>💬 {episodeTakes.length} Hot Take{episodeTakes.length !== 1 ? 's' : ''}</span>
+                    <span style={{ fontSize: '12px', color: '#ff8000' }}>
+                      {showDiscussion ? 'Hide' : 'View'}
+                    </span>
+                  </button>
+
+                  {showDiscussion && (
+                    <div style={{ marginTop: '12px', maxHeight: '300px', overflowY: 'auto' }}>
+                      {episodeTakes.map(take => {
+                        const user = Object.values(USERS).find(u => u.id === take.userId);
+                        return (
+                          <div key={take.id} style={{ padding: '12px', background: '#14181c', borderRadius: '8px', marginBottom: '8px' }}>
+                            <div style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
+                              <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(135deg, #ff8000, #ff6000)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: '700', color: '#14181c' }}>
+                                {user.username[0].toUpperCase()}
+                              </div>
+                              <div>
+                                <div style={{ fontSize: '14px', fontWeight: '600' }}>{user.username}</div>
+                                <div style={{ fontSize: '11px', color: '#9ab' }}>{take.time}</div>
+                              </div>
+                              {take.isLive && (
+                                <div className="pulse" style={{ marginLeft: 'auto', padding: '4px 8px', background: 'rgba(255,68,68,0.1)', border: '1px solid #ff4444', borderRadius: '8px', fontSize: '10px', fontWeight: '700', color: '#ff4444' }}>
+                                  🔴 LIVE
+                                </div>
+                              )}
+                            </div>
+                            <div style={{ fontSize: '14px', lineHeight: '1.5' }}>{take.content}</div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
+
+          {showComposer && <EpisodeComposer ep={ep} show={show} onClose={() => setShowComposer(false)} />}
         </>
       );
     }
 
-    // ============================================================================
-    // HOT TAKES VIEW
-    // ============================================================================
-    function HotTakesView({ onSelectShow, onCompose }) {
-      return (
-        <div style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
-          <div style={{
-            position: 'sticky',
-            top: 0,
-            background: 'var(--bg-primary)',
-            borderBottom: '1px solid var(--bg-tertiary)',
-            padding: 'var(--space-lg) var(--space-xl)',
-            zIndex: 'var(--z-sticky)'
-          }}>
-            <h1 className="text-3xl font-bold flex items-center gap-md" style={{ color: 'var(--text-primary)' }}>
-              <Icon name="Flame" size={28} style={{ color: 'var(--accent-primary)' }} />
-              Hot Takes
-            </h1>
-          </div>
-
-          <div style={{ padding: 'var(--space-lg)' }}>
-            {HOT_TAKES.map((take, idx) => <HotTakeCard key={take.id} take={take} index={idx} onSelectShow={onSelectShow} />)}
-          </div>
-
-          <button className="fab" onClick={onCompose}>
-            <Icon name="Plus" size={28} />
-          </button>
-        </div>
-      );
-    }
-
-    function HotTakeCard({ take, index, onSelectShow }) {
-      const user = USERS[take.userId];
-      const episode = EPISODES.find(e => e.id === take.episodeId);
-      const show = episode ? Object.values(SHOWS).find(s => s.id === episode.showId) : null;
-
-      const timeAgo = useMemo(() => {
-        const minutes = Math.floor((Date.now() - take.timestamp) / 60000);
-        if (minutes < 60) return `${minutes}m ago`;
-        const hours = Math.floor(minutes / 60);
-        if (hours < 24) return `${hours}h ago`;
-        return `${Math.floor(hours / 24)}d ago`;
-      }, [take.timestamp]);
-
-      return (
-        <div className="card mb-md animate-in" style={{ animationDelay: `${index * 50}ms` }}>
-          <div className="flex items-center gap-md mb-md">
-            <div className="avatar-md">{user.username[0].toUpperCase()}</div>
-            <div style={{ flex: 1 }}>
-              <div className="text-base font-semibold" style={{ color: 'var(--text-primary)' }}>{user.username}</div>
-              <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>{timeAgo}</div>
-            </div>
-            {take.isLive && (
-              <div className="badge badge-live pulse">
-                🔴 LIVE
-              </div>
-            )}
-          </div>
-
-          {show && episode && (
-            <div
-              onClick={() => onSelectShow(show)}
-              className="cursor-pointer"
-              style={{
-                padding: 'var(--space-md)',
-                background: 'var(--bg-primary)',
-                borderRadius: 'var(--radius-md)',
-                marginBottom: 'var(--space-md)'
-              }}
-            >
-              <div className="flex items-center gap-sm">
-                <span className="text-sm font-semibold" style={{ color: 'var(--accent-primary)' }}>{show.name}</span>
-                <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>S{episode.season}E{episode.episode}</span>
-              </div>
-            </div>
-          )}
-
-          <div className="text-base mb-md" style={{ color: 'var(--text-primary)', lineHeight: '1.5' }}>
-            {take.content}
-          </div>
-
-          <div className="flex gap-lg">
-            <button className="btn-ghost" style={{ padding: 'var(--space-sm)' }}>🔥 {take.reactions.fire || 0}</button>
-            <button className="btn-ghost" style={{ padding: 'var(--space-sm)' }}>💀 {take.reactions.skull || 0}</button>
-            <button className="btn-ghost" style={{ padding: 'var(--space-sm)' }}>👀 {take.reactions.eyes || 0}</button>
-          </div>
-        </div>
-      );
-    }
-
-    // ============================================================================
-    // HOT TAKE COMPOSER
-    // ============================================================================
-    function HotTakeComposer({ onClose }) {
-      const [content, setContent] = useState('');
-      const maxChars = 280;
+    // Episode-Specific Composer
+    function EpisodeComposer({ ep, show, onClose }) {
+      const [text, setText] = useState('');
+      const max = 280;
 
       return (
         <>
-          <div className="bottom-sheet-overlay" onClick={onClose} />
-          <div className="bottom-sheet" style={{ maxHeight: '80vh' }}>
-            <div className="bottom-sheet-handle" />
+          <div className="overlay" onClick={onClose} style={{ zIndex: 1001 }} />
+          <div className="bottom-sheet" style={{ zIndex: 1002 }}>
+            <div className="sheet-handle" />
             
-            <div style={{ padding: '0 var(--space-xl) var(--space-3xl)' }}>
-              <div className="flex justify-between items-center mb-xl">
-                <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>What's your hot take?</h2>
-                <button onClick={onClose} className="btn-ghost" style={{ padding: 'var(--space-sm)' }}>
+            <div style={{ padding: '0 20px 32px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <h2 style={{ fontSize: '20px', fontWeight: '700' }}>Post Hot Take</h2>
+                <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#9ab', cursor: 'pointer', padding: '8px' }}>
                   <Icon name="X" size={24} />
                 </button>
               </div>
 
+              {/* Episode Context */}
+              <div style={{ padding: '12px', background: '#14181c', borderRadius: '8px', marginBottom: '16px' }}>
+                <div style={{ fontSize: '13px', color: '#ff8000', fontWeight: '600', marginBottom: '4px' }}>{show.name}</div>
+                <div style={{ fontSize: '15px', fontWeight: '600' }}>S{ep.season}E{ep.episode}: {ep.name}</div>
+              </div>
+
               <textarea
-                value={content}
-                onChange={(e) => setContent(e.target.value.slice(0, maxChars))}
-                placeholder="This episode is WILD 🔥"
+                value={text}
+                onChange={(e) => setText(e.target.value.slice(0, max))}
+                placeholder="OMG this episode 🔥"
                 autoFocus
-                className="input"
-                style={{
-                  minHeight: '120px',
-                  marginBottom: 'var(--space-md)',
-                  resize: 'vertical',
-                  fontFamily: 'inherit'
-                }}
+                style={{ width: '100%', minHeight: '120px', background: '#14181c', border: '1px solid #456', borderRadius: '12px', padding: '16px', color: '#fff', fontSize: '16px', resize: 'vertical', outline: 'none', marginBottom: '12px', fontFamily: 'inherit' }}
               />
 
-              <div className="flex justify-between items-center mb-lg">
-                <span className="text-sm" style={{ color: content.length > 250 ? 'var(--error)' : 'var(--text-secondary)' }}>
-                  {content.length}/{maxChars}
-                </span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <span style={{ fontSize: '14px', color: text.length > 250 ? '#ff4444' : '#9ab' }}>{text.length}/{max}</span>
               </div>
 
               <button
-                disabled={!content.trim()}
-                className="btn btn-primary w-full"
+                disabled={!text.trim()}
                 style={{
-                  background: content.trim() ? 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))' : 'var(--bg-tertiary)',
-                  color: content.trim() ? 'var(--bg-primary)' : 'var(--text-secondary)',
-                  cursor: content.trim() ? 'pointer' : 'not-allowed'
+                  width: '100%',
+                  minHeight: '56px',
+                  background: text.trim() ? 'linear-gradient(135deg, #ff8000, #ff6000)' : '#456',
+                  border: 'none',
+                  borderRadius: '16px',
+                  color: text.trim() ? '#14181c' : '#9ab',
+                  fontSize: '16px',
+                  fontWeight: '700',
+                  cursor: text.trim() ? 'pointer' : 'not-allowed'
                 }}
               >
                 Post
@@ -1387,84 +777,159 @@
       );
     }
 
-    // ============================================================================
-    // ACTIVITY VIEW (Letterboxd-style)
-    // ============================================================================
-    function ActivityView({ onSelectShow }) {
+    // Hot Takes
+    function HotTakes({ onSelect, onCompose }) {
       return (
-        <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', padding: 'var(--space-xl)' }}>
-          <h1 className="text-3xl font-bold mb-xl" style={{ color: 'var(--text-primary)' }}>Activity</h1>
-          
-          <div className="card text-center" style={{ padding: 'var(--space-3xl)' }}>
-            <div style={{ fontSize: '48px', marginBottom: 'var(--space-lg)' }}>📊</div>
-            <div className="text-lg font-semibold mb-sm" style={{ color: 'var(--text-primary)' }}>Activity Feed Coming Soon</div>
-            <div className="text-sm" style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>
-              See what your friends are watching, rating, and saying about episodes
-            </div>
+        <div style={{ minHeight: '100vh', background: '#14181c' }}>
+          <div style={{ position: 'sticky', top: 0, background: '#14181c', borderBottom: '1px solid #2c3440', padding: '16px 20px', zIndex: 50 }}>
+            <h1 style={{ fontSize: '28px', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <Icon name="Flame" size={28} />
+              Hot Takes
+            </h1>
           </div>
+
+          <div style={{ padding: '16px' }}>
+            {HOT_TAKES.map((take, i) => {
+              const user = Object.values(USERS).find(u => u.id === take.userId);
+              const episode = EPISODES.find(e => e.id === take.episodeId);
+              const show = episode ? Object.values(SHOWS).find(s => s.id === episode.showId) : null;
+
+              return (
+                <div key={take.id} className="card animate-in" style={{ animationDelay: `${i * 50}ms` }}>
+                  <div style={{ display: 'flex', gap: '12px', marginBottom: '12px' }}>
+                    <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'linear-gradient(135deg, #ff8000, #ff6000)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px', fontWeight: '700', color: '#14181c' }}>
+                      {user.username[0].toUpperCase()}
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '15px', fontWeight: '600' }}>{user.username}</div>
+                      <div style={{ fontSize: '12px', color: '#9ab' }}>{take.time}</div>
+                    </div>
+                    {take.isLive && (
+                      <div className="pulse" style={{ padding: '6px 12px', background: 'rgba(255,68,68,0.1)', border: '1px solid #ff4444', borderRadius: '12px', fontSize: '11px', fontWeight: '700', color: '#ff4444' }}>
+                        🔴 LIVE
+                      </div>
+                    )}
+                  </div>
+
+                  {show && episode && (
+                    <div
+                      onClick={() => onSelect(show)}
+                      style={{ padding: '10px 12px', background: '#14181c', borderRadius: '8px', marginBottom: '12px', cursor: 'pointer' }}
+                    >
+                      <span style={{ fontSize: '14px', color: '#ff8000', fontWeight: '600' }}>{show.name}</span>
+                      <span style={{ fontSize: '13px', color: '#9ab', marginLeft: '8px' }}>S{episode.season}E{episode.episode}</span>
+                    </div>
+                  )}
+
+                  <div style={{ fontSize: '15px', lineHeight: '1.5', marginBottom: '12px' }}>{take.content}</div>
+
+                  <div style={{ display: 'flex', gap: '16px' }}>
+                    <button style={{ background: 'none', border: 'none', color: '#9ab', cursor: 'pointer', padding: '8px', fontSize: '14px' }}>🔥 {take.reactions.fire || 0}</button>
+                    <button style={{ background: 'none', border: 'none', color: '#9ab', cursor: 'pointer', padding: '8px', fontSize: '14px' }}>💀 {take.reactions.skull || 0}</button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <button className="fab" onClick={onCompose}>
+            <Icon name="Plus" size={28} />
+          </button>
         </div>
       );
     }
 
-    // ============================================================================
-    // DIARY VIEW (Calendar of watched episodes)
-    // ============================================================================
-    function DiaryView({ onSelectShow }) {
+    // Composer
+    function Composer({ onClose }) {
+      const [text, setText] = useState('');
+      const max = 280;
+
       return (
-        <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', padding: 'var(--space-xl)' }}>
-          <h1 className="text-3xl font-bold mb-xl" style={{ color: 'var(--text-primary)' }}>Diary</h1>
-          
-          <div className="card text-center" style={{ padding: 'var(--space-3xl)' }}>
-            <div style={{ fontSize: '48px', marginBottom: 'var(--space-lg)' }}>📅</div>
-            <div className="text-lg font-semibold mb-sm" style={{ color: 'var(--text-primary)' }}>Start Your TV Diary</div>
-            <div className="text-sm" style={{ color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: 'var(--space-xl)' }}>
-              Track every episode you watch with a calendar view. Your personal TV journal.
+        <>
+          <div className="overlay" onClick={onClose} />
+          <div className="bottom-sheet" style={{ maxHeight: '80vh' }}>
+            <div className="sheet-handle" />
+            
+            <div style={{ padding: '0 20px 32px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <h2 style={{ fontSize: '20px', fontWeight: '700' }}>Post Hot Take</h2>
+                <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#9ab', cursor: 'pointer', padding: '8px' }}>
+                  <Icon name="X" size={24} />
+                </button>
+              </div>
+
+              <textarea
+                value={text}
+                onChange={(e) => setText(e.target.value.slice(0, max))}
+                placeholder="This episode is WILD 🔥"
+                autoFocus
+                style={{ width: '100%', minHeight: '120px', background: '#14181c', border: '1px solid #456', borderRadius: '12px', padding: '16px', color: '#fff', fontSize: '16px', resize: 'vertical', outline: 'none', marginBottom: '12px', fontFamily: 'inherit' }}
+              />
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <span style={{ fontSize: '14px', color: text.length > 250 ? '#ff4444' : '#9ab' }}>{text.length}/{max}</span>
+              </div>
+
+              <button
+                disabled={!text.trim()}
+                style={{
+                  width: '100%',
+                  minHeight: '56px',
+                  background: text.trim() ? 'linear-gradient(135deg, #ff8000, #ff6000)' : '#456',
+                  border: 'none',
+                  borderRadius: '16px',
+                  color: text.trim() ? '#14181c' : '#9ab',
+                  fontSize: '16px',
+                  fontWeight: '700',
+                  cursor: text.trim() ? 'pointer' : 'not-allowed'
+                }}
+              >
+                Post
+              </button>
             </div>
-            <button className="btn btn-primary">Mark First Episode</button>
           </div>
-        </div>
+        </>
       );
     }
 
-    // ============================================================================
-    // PROFILE VIEW
-    // ============================================================================
-    function ProfileView() {
+    // Profile
+    function Profile() {
       const user = USERS.current;
-      const ratingCount = Object.keys(mockStorage.ratings).length;
+      const rated = Object.keys(storage.ratings).length;
 
       return (
-        <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', padding: 'var(--space-xl)' }}>
-          <div className="card mb-xl">
-            <div className="flex items-center gap-lg mb-lg">
-              <div className="avatar-xl">{user.username[0].toUpperCase()}</div>
-              <div style={{ flex: 1 }}>
-                <div className="text-2xl font-bold mb-xs" style={{ color: 'var(--text-primary)' }}>{user.displayName}</div>
-                <div className="text-sm mb-sm" style={{ color: 'var(--text-secondary)' }}>@{user.username}</div>
-                <div className="text-base" style={{ color: 'var(--text-primary)' }}>{user.bio}</div>
+        <div style={{ minHeight: '100vh', background: '#14181c', padding: '20px' }}>
+          <div className="card" style={{ marginBottom: '20px' }}>
+            <div style={{ display: 'flex', gap: '20px', marginBottom: '20px' }}>
+              <div style={{ width: '72px', height: '72px', borderRadius: '50%', background: 'linear-gradient(135deg, #ff8000, #ff6000)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '32px', fontWeight: '700', color: '#14181c' }}>
+                T
+              </div>
+              <div>
+                <div style={{ fontSize: '24px', fontWeight: '700', marginBottom: '4px' }}>{user.name}</div>
+                <div style={{ fontSize: '14px', color: '#9ab' }}>@{user.username}</div>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-lg" style={{ paddingTop: 'var(--space-xl)', borderTop: '1px solid var(--bg-tertiary)' }}>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-xs" style={{ color: 'var(--accent-primary)' }}>{ratingCount}</div>
-                <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>Rated</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', paddingTop: '20px', borderTop: '1px solid #2c3440' }}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '28px', fontWeight: '700', color: '#ff8000', marginBottom: '4px' }}>{rated}</div>
+                <div style={{ fontSize: '12px', color: '#9ab' }}>Rated</div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-xs" style={{ color: 'var(--accent-primary)' }}>{HOT_TAKES.filter(t => t.userId === user.id).length}</div>
-                <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>Hot Takes</div>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '28px', fontWeight: '700', color: '#ff8000', marginBottom: '4px' }}>1</div>
+                <div style={{ fontSize: '12px', color: '#9ab' }}>Posts</div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-xs" style={{ color: 'var(--accent-primary)' }}>{user.following.length}</div>
-                <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>Following</div>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '28px', fontWeight: '700', color: '#ff8000', marginBottom: '4px' }}>2</div>
+                <div style={{ fontSize: '12px', color: '#9ab' }}>Following</div>
               </div>
             </div>
           </div>
 
-          <div className="card text-center" style={{ padding: 'var(--space-3xl)' }}>
-            <h2 className="text-xl font-bold mb-md" style={{ color: 'var(--text-primary)' }}>🎬 Ultimate Episodic</h2>
-            <p className="text-sm" style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>
-              Mobile-first, Letterboxd-accurate, production-ready. Rate episodes, post hot takes, track your TV journey.
+          <div className="card" style={{ textAlign: 'center', padding: '32px' }}>
+            <h2 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '12px' }}>📺 Episodic Demo</h2>
+            <p style={{ fontSize: '14px', color: '#9ab', lineHeight: '1.6' }}>
+              Mobile-first TV episode tracker. Rate episodes, post hot takes, see who's watching now. Letterboxd for TV!
             </p>
           </div>
         </div>
