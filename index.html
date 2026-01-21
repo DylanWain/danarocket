@@ -733,6 +733,32 @@
       { id: 5, type: 'follow', userId: '4', content: 'started following you', time: Date.now() - 2 * 3600000 }
     ];
 
+    // Comments on hot takes
+    const initialComments = [
+      { id: 1, takeId: 1, userId: '1', content: 'Agreed! Best drama in years', time: Date.now() - 10 * 60000 },
+      { id: 2, takeId: 1, userId: '4', content: 'The twist was insane', time: Date.now() - 8 * 60000 },
+      { id: 3, takeId: 2, userId: '2', content: 'That monologue though', time: Date.now() - 1 * 3600000 }
+    ];
+
+    // Reviews (long-form, separate from hot takes)
+    const initialReviews = [
+      { id: 1, userId: '1', episodeId: 70, rating: 5, content: 'Breaking Bad\'s finale is a masterclass in television storytelling. Every thread comes together perfectly, and Walter White\'s arc concludes with such precision. The tension builds throughout, and the payoff is absolutely worth it. This is how you end a series.', hasSpoilers: true, time: Date.now() - 5 * 3600000, likes: 34 },
+      { id: 2, userId: '2', episodeId: 3, rating: 4.5, content: 'Love Island continues to deliver pure entertainment. The new bombshell entrance created immediate chaos in the villa, exactly what we needed. The drama is authentic and the connections feel real this season.', hasSpoilers: false, time: Date.now() - 2 * 3600000, likes: 18 }
+    ];
+
+    // Streaming services
+    const STREAMING_SERVICES = ['Netflix', 'Hulu', 'HBO Max', 'Disney+', 'Prime Video', 'Peacock', 'Paramount+', 'Apple TV+'];
+
+    // Popular this week (based on ratings/activity)
+    const POPULAR_THIS_WEEK = [1, 3, 7, 24, 25]; // Show IDs
+
+    // Tags
+    const EPISODE_TAGS = {
+      3: ['bombshell', 'drama', 'recoupling'],
+      52: ['comedy gold', 'celebrity host', 'political'],
+      70: ['finale', 'masterpiece', 'emotional']
+    };
+
     // Icon Component (CUSTOM - NO EMOJIS)
     const Icon = ({ name, size = 24 }) => {
       const icons = {
@@ -743,6 +769,7 @@
         Search: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>,
         Star: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
         ChevronLeft: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>,
+        ChevronDown: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>,
         Plus: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
         X: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>,
         Heart: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>,
@@ -753,13 +780,23 @@
         Calendar: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>,
         Send: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>,
         TrendingUp: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>,
-        Award: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+        Award: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>,
+        UserPlus: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>,
+        UserMinus: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="23" y1="11" x2="17" y2="11"></line></svg>,
+        Users: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>,
+        Share: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>,
+        AlertCircle: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>,
+        BookOpen: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>,
+        Clock: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>,
+        Film: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>,
+        Tag: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>,
+        Bookmark: <svg className="icon" width={size} height={size} viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
       };
-      return icons[name];
+      return icons[name] || icons.Star;
     };
 
     // ============================================================================
-    // MAIN APP WITH FULL STATE MANAGEMENT
+    // MAIN APP WITH COMPLETE STATE MANAGEMENT
     // ============================================================================
     function App() {
       const [tab, setTab] = useState('home');
@@ -770,19 +807,40 @@
       // STATE MANAGEMENT - FULLY FUNCTIONAL
       const [ratings, setRatings] = useState({});
       const [hotTakes, setHotTakes] = useState(initialHotTakes);
-      const [watchlist, setWatchlist] = useState([]);
+      const [comments, setComments] = useState(initialComments);
+      const [reviews, setReviews] = useState(initialReviews);
+      const [watchlist, setWatchlist] = useState([3, 7, 24]); // Episode IDs
       const [lists, setLists] = useState([]);
+      const [diary, setDiary] = useState({}); // { episodeId: { date, service, rewatch } }
+      const [following, setFollowing] = useState(['2', '3']); // User IDs we follow
+      const [likedTakes, setLikedTakes] = useState([1, 2]); // Take IDs we liked
+      const [likedReviews, setLikedReviews] = useState([1]); // Review IDs we liked
 
       const showToast = useCallback((message) => {
         setToast(message);
         setTimeout(() => setToast(null), 3000);
       }, []);
 
+      // FOLLOW/UNFOLLOW
+      const toggleFollow = useCallback((userId) => {
+        setFollowing(prev => {
+          if (prev.includes(userId)) {
+            showToast('Unfollowed');
+            return prev.filter(id => id !== userId);
+          } else {
+            showToast('Following!');
+            return [...prev, userId];
+          }
+        });
+      }, [showToast]);
+
+      // RATINGS
       const handleRateEpisode = useCallback((episodeId, rating) => {
         setRatings(prev => ({ ...prev, [episodeId]: rating }));
         showToast('Rating saved!');
       }, [showToast]);
 
+      // HOT TAKES
       const handlePostHotTake = useCallback((content, episodeId) => {
         const newTake = {
           id: Date.now(),
@@ -797,6 +855,83 @@
         showToast('Hot take posted!');
       }, [showToast]);
 
+      const toggleLikeTake = useCallback((takeId) => {
+        setLikedTakes(prev => {
+          if (prev.includes(takeId)) {
+            return prev.filter(id => id !== takeId);
+          } else {
+            showToast('Liked!');
+            return [...prev, takeId];
+          }
+        });
+      }, [showToast]);
+
+      // COMMENTS
+      const handlePostComment = useCallback((takeId, content) => {
+        const newComment = {
+          id: Date.now(),
+          takeId,
+          userId: '1',
+          content,
+          time: Date.now()
+        };
+        setComments(prev => [...prev, newComment]);
+        showToast('Comment posted!');
+      }, [showToast]);
+
+      // REVIEWS
+      const handlePostReview = useCallback((episodeId, rating, content, hasSpoilers) => {
+        const newReview = {
+          id: Date.now(),
+          userId: '1',
+          episodeId,
+          rating,
+          content,
+          hasSpoilers,
+          time: Date.now(),
+          likes: 0
+        };
+        setReviews(prev => [newReview, ...prev]);
+        showToast('Review posted!');
+      }, [showToast]);
+
+      const toggleLikeReview = useCallback((reviewId) => {
+        setLikedReviews(prev => {
+          if (prev.includes(reviewId)) {
+            return prev.filter(id => id !== reviewId);
+          } else {
+            showToast('Liked!');
+            return [...prev, reviewId];
+          }
+        });
+      }, [showToast]);
+
+      // WATCHLIST
+      const toggleWatchlist = useCallback((episodeId) => {
+        setWatchlist(prev => {
+          if (prev.includes(episodeId)) {
+            showToast('Removed from watchlist');
+            return prev.filter(id => id !== episodeId);
+          } else {
+            showToast('Added to watchlist!');
+            return [...prev, episodeId];
+          }
+        });
+      }, [showToast]);
+
+      // DIARY
+      const markWatched = useCallback((episodeId, service, isRewatch = false) => {
+        setDiary(prev => ({
+          ...prev,
+          [episodeId]: {
+            date: new Date().toISOString(),
+            service,
+            rewatch: isRewatch
+          }
+        }));
+        showToast(isRewatch ? 'Marked as rewatched!' : 'Marked as watched!');
+      }, [showToast]);
+
       return (
         <div>
           {show ? (
@@ -806,14 +941,26 @@
               ratings={ratings}
               onRate={handleRateEpisode}
               onPostTake={handlePostHotTake}
+              onPostReview={handlePostReview}
+              watchlist={watchlist}
+              onToggleWatchlist={toggleWatchlist}
+              diary={diary}
+              onMarkWatched={markWatched}
+              likedTakes={likedTakes}
+              onToggleLikeTake={toggleLikeTake}
+              comments={comments}
+              onPostComment={handlePostComment}
             />
           ) : (
             <>
-              {tab === 'home' && <HomeView onSelectShow={setShow} />}
-              {tab === 'hot-takes' && <HotTakesView onSelectShow={setShow} onCompose={() => setComposer(true)} hotTakes={hotTakes} />}
-              {tab === 'activity' && <ActivityView onSelectShow={setShow} />}
+              {tab === 'home' && <HomeView onSelectShow={setShow} following={following} />}
+              {tab === 'hot-takes' && <HotTakesView onSelectShow={setShow} onCompose={() => setComposer(true)} hotTakes={hotTakes} likedTakes={likedTakes} onToggleLike={toggleLikeTake} comments={comments} onPostComment={handlePostComment} />}
+              {tab === 'activity' && <ActivityView onSelectShow={setShow} following={following} onToggleFollow={toggleFollow} />}
+              {tab === 'watchlist' && <WatchlistView onSelectShow={setShow} watchlist={watchlist} onToggleWatchlist={toggleWatchlist} />}
               {tab === 'lists' && <ListsView onSelectShow={setShow} lists={lists} setLists={setLists} />}
-              {tab === 'profile' && <ProfileView ratings={ratings} hotTakes={hotTakes.filter(t => t.userId === '1')} />}
+              {tab === 'diary' && <DiaryView onSelectShow={setShow} diary={diary} ratings={ratings} />}
+              {tab === 'stats' && <StatsView ratings={ratings} hotTakes={hotTakes.filter(t => t.userId === '1')} diary={diary} />}
+              {tab === 'profile' && <ProfileView ratings={ratings} hotTakes={hotTakes.filter(t => t.userId === '1')} following={following} onToggleFollow={toggleFollow} />}
             </>
           )}
           
@@ -839,8 +986,8 @@
           {[
             { id: 'home', icon: 'Home', label: 'Home' },
             { id: 'hot-takes', icon: 'Flame', label: 'Hot Takes' },
-            { id: 'activity', icon: 'Bell', label: 'Activity', badge: hasNotifications },
             { id: 'lists', icon: 'List', label: 'Lists' },
+            { id: 'diary', icon: 'Calendar', label: 'Diary' },
             { id: 'profile', icon: 'User', label: 'You' }
           ].map(item => (
             <button
@@ -860,15 +1007,17 @@
     }
 
     // ============================================================================
-    // HOME VIEW - COMPLETE
+    // HOME VIEW - ENHANCED WITH POPULAR & FOLLOWING FEED
     // ============================================================================
-    function HomeView({ onSelectShow }) {
+    function HomeView({ onSelectShow, following }) {
       const [search, setSearch] = useState('');
       const [results, setResults] = useState([]);
       const [genre, setGenre] = useState('all');
+      const [feedType, setFeedType] = useState('everyone'); // 'everyone' or 'following'
       const [loading, setLoading] = useState(false);
 
       const trending = useMemo(() => SHOWS.filter(s => s.trending), []);
+      const popular = useMemo(() => SHOWS.filter(s => POPULAR_THIS_WEEK.includes(s.id)), []);
       
       const filteredShows = useMemo(() => {
         if (genre === 'all') return SHOWS;
@@ -892,9 +1041,30 @@
         <div style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
           {/* Header */}
           <div style={{ position: 'sticky', top: 0, background: 'rgba(10,14,19,0.95)', backdropFilter: 'blur(20px)', borderBottom: '1px solid var(--border-subtle)', padding: 'var(--space-20) var(--space-24)', zIndex: 'var(--z-sticky)' }}>
-            <h1 className="text-gradient" style={{ fontSize: 'var(--text-4xl)', fontWeight: '800', marginBottom: 'var(--space-16)', letterSpacing: '-0.02em' }}>
-              Episodic
-            </h1>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-16)' }}>
+              <h1 className="text-gradient" style={{ fontSize: 'var(--text-4xl)', fontWeight: '800', letterSpacing: '-0.02em' }}>
+                Episodic
+              </h1>
+              {following.length > 0 && (
+                <div style={{ display: 'flex', gap: 'var(--space-8)' }}>
+                  <button
+                    onClick={() => setFeedType('everyone')}
+                    className={`genre-pill ${feedType === 'everyone' ? 'active' : ''}`}
+                    style={{ fontSize: 'var(--text-xs)' }}
+                  >
+                    Everyone
+                  </button>
+                  <button
+                    onClick={() => setFeedType('following')}
+                    className={`genre-pill ${feedType === 'following' ? 'active' : ''}`}
+                    style={{ fontSize: 'var(--text-xs)' }}
+                  >
+                    <Icon name="Users" size={14} />
+                    Following
+                  </button>
+                </div>
+              )}
+            </div>
             
             <div style={{ position: 'relative' }}>
               <div style={{ position: 'relative' }}>
@@ -964,8 +1134,11 @@
 
           {/* Shows Grid */}
           <div style={{ padding: 'var(--space-24)' }}>
+            {popular.length > 0 && genre === 'all' && (
+              <ShowSection title="Popular This Week" shows={popular} onSelect={onSelectShow} icon="TrendingUp" />
+            )}
             {trending.length > 0 && genre === 'all' && (
-              <ShowSection title="Trending Now" shows={trending} onSelect={onSelectShow} />
+              <ShowSection title="Trending Now" shows={trending} onSelect={onSelectShow} icon="Flame" />
             )}
             <ShowSection title={genre === 'all' ? 'All Shows' : genre} shows={filteredShows} onSelect={onSelectShow} />
           </div>
@@ -973,12 +1146,12 @@
       );
     }
 
-    function ShowSection({ title, shows, onSelect }) {
+    function ShowSection({ title, shows, onSelect, icon }) {
       return (
         <div style={{ marginBottom: 'var(--space-40)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-12)', marginBottom: 'var(--space-20)' }}>
             <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', color: 'var(--text-primary)' }}>{title}</h2>
-            {title === 'Trending Now' && <Icon name="TrendingUp" size={20} style={{ color: 'var(--accent-primary)' }} />}
+            {icon && <Icon name={icon} size={20} style={{ color: 'var(--accent-primary)' }} />}
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-16)' }}>
             {shows.map((s, i) => (
@@ -1290,9 +1463,12 @@
     }
 
     // ============================================================================
-    // HOT TAKES VIEW - COMPLETE
+    // HOT TAKES VIEW - COMPLETE WITH LIKES & COMMENTS
     // ============================================================================
-    function HotTakesView({ onSelectShow, onCompose, hotTakes }) {
+    function HotTakesView({ onSelectShow, onCompose, hotTakes, likedTakes, onToggleLike, comments, onPostComment }) {
+      const [expandedTake, setExpandedTake] = useState(null);
+      const [commentText, setCommentText] = useState('');
+
       return (
         <div style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
           <div style={{ position: 'sticky', top: 0, background: 'rgba(10,14,19,0.95)', backdropFilter: 'blur(20px)', borderBottom: '1px solid var(--border-subtle)', padding: 'var(--space-20) var(--space-24)', zIndex: 'var(--z-sticky)' }}>
@@ -1315,6 +1491,9 @@
                 const user = Object.values(USERS).find(u => u.id === take.userId);
                 const episode = EPISODES.find(e => e.id === take.episodeId);
                 const show = episode ? SHOWS.find(s => s.id === episode.showId) : null;
+                const isLiked = likedTakes.includes(take.id);
+                const takeComments = comments.filter(c => c.takeId === take.id);
+                const isExpanded = expandedTake === take.id;
 
                 return (
                   <div key={take.id} className="card animate-in" style={{ marginBottom: 'var(--space-16)', animationDelay: `${i * 40}ms` }}>
@@ -1342,16 +1521,95 @@
 
                     <div style={{ fontSize: 'var(--text-base)', color: 'var(--text-primary)', lineHeight: '1.6', marginBottom: 'var(--space-16)' }}>{take.content}</div>
 
-                    <div style={{ display: 'flex', gap: 'var(--space-16)' }}>
-                      <button className="btn-ghost" style={{ padding: 'var(--space-8)', fontSize: 'var(--text-sm)' }}>
-                        <Icon name="Heart" size={16} />
-                        {take.reactions.fire || 0}
+                    {/* Actions */}
+                    <div style={{ display: 'flex', gap: 'var(--space-16)', paddingTop: 'var(--space-16)', borderTop: '1px solid var(--border-subtle)' }}>
+                      <button
+                        onClick={() => onToggleLike(take.id)}
+                        className="btn-ghost"
+                        style={{
+                          padding: 'var(--space-8)',
+                          fontSize: 'var(--text-sm)',
+                          color: isLiked ? 'var(--accent-primary)' : 'var(--text-secondary)'
+                        }}
+                      >
+                        <Icon name="Heart" size={16} style={{ fill: isLiked ? 'var(--accent-primary)' : 'none' }} />
+                        {(take.reactions.fire || 0) + (isLiked ? 1 : 0)}
+                      </button>
+                      <button
+                        onClick={() => setExpandedTake(isExpanded ? null : take.id)}
+                        className="btn-ghost"
+                        style={{ padding: 'var(--space-8)', fontSize: 'var(--text-sm)' }}
+                      >
+                        <Icon name="MessageCircle" size={16} />
+                        {takeComments.length}
                       </button>
                       <button className="btn-ghost" style={{ padding: 'var(--space-8)', fontSize: 'var(--text-sm)' }}>
-                        <Icon name="MessageCircle" size={16} />
-                        {take.reactions.skull || 0}
+                        <Icon name="Share" size={16} />
+                        Share
                       </button>
                     </div>
+
+                    {/* Comments Section */}
+                    {isExpanded && (
+                      <div style={{ marginTop: 'var(--space-16)', paddingTop: 'var(--space-16)', borderTop: '1px solid var(--border-subtle)' }}>
+                        {takeComments.length > 0 && (
+                          <div style={{ marginBottom: 'var(--space-16)', display: 'flex', flexDirection: 'column', gap: 'var(--space-12)' }}>
+                            {takeComments.map(comment => {
+                              const commentUser = Object.values(USERS).find(u => u.id === comment.userId);
+                              return (
+                                <div key={comment.id} style={{ display: 'flex', gap: 'var(--space-12)' }}>
+                                  <div className="avatar" style={{ width: '32px', height: '32px', fontSize: 'var(--text-sm)' }}>
+                                    {commentUser.username[0].toUpperCase()}
+                                  </div>
+                                  <div style={{ flex: 1 }}>
+                                    <div style={{ fontSize: 'var(--text-sm)', fontWeight: '600', color: 'var(--text-primary)', marginBottom: 'var(--space-4)' }}>
+                                      {commentUser.username}
+                                    </div>
+                                    <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+                                      {comment.content}
+                                    </div>
+                                    <div style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)', marginTop: 'var(--space-4)' }}>
+                                      {formatTime(comment.time)}
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+
+                        {/* Comment Input */}
+                        <div style={{ display: 'flex', gap: 'var(--space-12)' }}>
+                          <input
+                            type="text"
+                            placeholder="Add a comment..."
+                            value={commentText}
+                            onChange={(e) => setCommentText(e.target.value)}
+                            className="input-field"
+                            style={{ flex: 1 }}
+                            onKeyPress={(e) => {
+                              if (e.key === 'Enter' && commentText.trim()) {
+                                onPostComment(take.id, commentText);
+                                setCommentText('');
+                              }
+                            }}
+                          />
+                          <button
+                            onClick={() => {
+                              if (commentText.trim()) {
+                                onPostComment(take.id, commentText);
+                                setCommentText('');
+                              }
+                            }}
+                            disabled={!commentText.trim()}
+                            className="btn-primary"
+                            style={{ padding: 'var(--space-12)', minHeight: '48px', opacity: commentText.trim() ? 1 : 0.5 }}
+                          >
+                            <Icon name="Send" size={20} />
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 );
               })
@@ -1366,9 +1624,9 @@
     }
 
     // ============================================================================
-    // ACTIVITY VIEW - COMPLETE
+    // ACTIVITY VIEW - COMPLETE WITH SOCIAL FEATURES
     // ============================================================================
-    function ActivityView({ onSelectShow }) {
+    function ActivityView({ onSelectShow, following, onToggleFollow }) {
       return (
         <div style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
           <div style={{ position: 'sticky', top: 0, background: 'rgba(10,14,19,0.95)', backdropFilter: 'blur(20px)', borderBottom: '1px solid var(--border-subtle)', padding: 'var(--space-20) var(--space-24)', zIndex: 'var(--z-sticky)' }}>
@@ -1377,6 +1635,40 @@
           </div>
 
           <div style={{ padding: 'var(--space-20)' }}>
+            {/* Suggested Users */}
+            {Object.values(USERS).filter(u => u.id !== '1' && !following.includes(u.id)).length > 0 && (
+              <div style={{ marginBottom: 'var(--space-32)' }}>
+                <h3 style={{ fontSize: 'var(--text-base)', fontWeight: '700', color: 'var(--text-primary)', marginBottom: 'var(--space-16)' }}>Suggested For You</h3>
+                {Object.values(USERS).filter(u => u.id !== '1' && !following.includes(u.id)).map((user, i) => (
+                  <div key={user.id} className="card card-interactive animate-in" style={{ marginBottom: 'var(--space-12)', animationDelay: `${i * 40}ms` }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-16)' }}>
+                      <div className="avatar" style={{ width: '48px', height: '48px', fontSize: 'var(--text-lg)' }}>
+                        {user.username[0].toUpperCase()}
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 'var(--text-base)', fontWeight: '700', color: 'var(--text-primary)', marginBottom: 'var(--space-4)' }}>
+                          {user.name}
+                        </div>
+                        <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)' }}>
+                          @{user.username}
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => onToggleFollow(user.id)}
+                        className="btn-primary"
+                        style={{ padding: 'var(--space-8) var(--space-16)' }}
+                      >
+                        <Icon name="UserPlus" size={16} />
+                        Follow
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Activity Feed */}
+            <h3 style={{ fontSize: 'var(--text-base)', fontWeight: '700', color: 'var(--text-primary)', marginBottom: 'var(--space-16)' }}>Recent Activity</h3>
             {YOUR_ACTIVITY.length === 0 ? (
               <div className="card" style={{ padding: 'var(--space-40)', textAlign: 'center' }}>
                 <Icon name="Bell" size={48} style={{ color: 'var(--text-tertiary)', margin: '0 auto var(--space-16)' }} />
@@ -1390,9 +1682,10 @@
                 const user = Object.values(USERS).find(u => u.id === activity.userId);
                 const episode = EPISODES.find(e => e.id === activity.episodeId);
                 const show = episode ? SHOWS.find(s => s.id === episode.showId) : null;
+                const isFollowing = following.includes(activity.userId);
 
                 return (
-                  <div key={activity.id} className="card card-interactive animate-in" onClick={() => show && onSelectShow(show)} style={{ marginBottom: 'var(--space-12)', animationDelay: `${i * 40}ms` }}>
+                  <div key={activity.id} className="card animate-in" onClick={() => show && onSelectShow(show)} style={{ marginBottom: 'var(--space-12)', animationDelay: `${i * 40}ms`, cursor: show ? 'pointer' : 'default' }}>
                     <div style={{ display: 'flex', gap: 'var(--space-12)', alignItems: 'center' }}>
                       <div className="avatar" style={{ width: '48px', height: '48px', fontSize: 'var(--text-lg)' }}>
                         {user.username[0].toUpperCase()}
@@ -1408,8 +1701,20 @@
                           </div>
                         )}
                       </div>
-                      <div style={{ flexShrink: 0, fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)', fontWeight: '600' }}>
-                        {formatTime(activity.time)}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-12)' }}>
+                        <div style={{ flexShrink: 0, fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)', fontWeight: '600' }}>
+                          {formatTime(activity.time)}
+                        </div>
+                        {activity.type === 'follow' && !isFollowing && (
+                          <button
+                            onClick={(e) => { e.stopPropagation(); onToggleFollow(activity.userId); }}
+                            className="btn-primary"
+                            style={{ padding: 'var(--space-6) var(--space-12)', minHeight: '32px', fontSize: 'var(--text-xs)' }}
+                          >
+                            <Icon name="UserPlus" size={14} />
+                            Follow Back
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -1548,13 +1853,18 @@
     }
 
     // ============================================================================
-    // PROFILE VIEW - COMPLETE
+    // PROFILE VIEW - COMPLETE WITH FOLLOWING/FOLLOWERS
     // ============================================================================
-    function ProfileView({ ratings, hotTakes }) {
+    function ProfileView({ ratings, hotTakes, following, onToggleFollow }) {
+      const [showView, setShowView] = useState('stats'); // 'stats', 'following', 'followers'
+      
       const user = USERS.current;
       const ratedCount = Object.keys(ratings).length;
       const takesCount = hotTakes.length;
       const avgRating = ratedCount > 0 ? (Object.values(ratings).reduce((a, b) => a + b, 0) / ratedCount).toFixed(1) : '0.0';
+      
+      // Mock followers
+      const followers = ['2', '4'];
 
       return (
         <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', padding: 'var(--space-24)' }}>
@@ -1575,24 +1885,114 @@
                 <div className="text-gradient" style={{ fontSize: 'var(--text-3xl)', fontWeight: '800', marginBottom: 'var(--space-8)' }}>{ratedCount}</div>
                 <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)', fontWeight: '600' }}>Rated</div>
               </div>
-              <div style={{ textAlign: 'center' }}>
-                <div className="text-gradient" style={{ fontSize: 'var(--text-3xl)', fontWeight: '800', marginBottom: 'var(--space-8)' }}>{takesCount}</div>
-                <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)', fontWeight: '600' }}>Hot Takes</div>
-              </div>
-              <div style={{ textAlign: 'center' }}>
-                <div className="text-gradient" style={{ fontSize: 'var(--text-3xl)', fontWeight: '800', marginBottom: 'var(--space-8)' }}>{avgRating}</div>
-                <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)', fontWeight: '600' }}>Avg Rating</div>
-              </div>
+              <button
+                onClick={() => setShowView('following')}
+                style={{ textAlign: 'center', background: 'none', border: 'none', cursor: 'pointer' }}
+              >
+                <div className="text-gradient" style={{ fontSize: 'var(--text-3xl)', fontWeight: '800', marginBottom: 'var(--space-8)' }}>{following.length}</div>
+                <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)', fontWeight: '600' }}>Following</div>
+              </button>
+              <button
+                onClick={() => setShowView('followers')}
+                style={{ textAlign: 'center', background: 'none', border: 'none', cursor: 'pointer' }}
+              >
+                <div className="text-gradient" style={{ fontSize: 'var(--text-3xl)', fontWeight: '800', marginBottom: 'var(--space-8)' }}>{followers.length}</div>
+                <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)', fontWeight: '600' }}>Followers</div>
+              </button>
             </div>
           </div>
 
-          <div className="glass-card" style={{ padding: 'var(--space-32)', textAlign: 'center' }}>
-            <Icon name="Award" size={48} style={{ color: 'var(--accent-primary)', margin: '0 auto var(--space-16)' }} />
-            <h3 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: 'var(--space-12)', color: 'var(--text-primary)' }}>Sequoia-Ready Demo</h3>
-            <p style={{ fontSize: 'var(--text-base)', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
-              Production-quality TV tracking. Rate episodes, post hot takes, discover shows. Built for investors.
-            </p>
-          </div>
+          {/* View Switcher */}
+          {showView === 'stats' ? (
+            <div className="glass-card" style={{ padding: 'var(--space-32)', textAlign: 'center' }}>
+              <Icon name="Award" size={48} style={{ color: 'var(--accent-primary)', margin: '0 auto var(--space-16)' }} />
+              <h3 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: 'var(--space-12)', color: 'var(--text-primary)' }}>Complete Version</h3>
+              <p style={{ fontSize: 'var(--text-base)', color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: 'var(--space-20)' }}>
+                Full Letterboxd feature parity. Track episodes, post hot takes, create lists, follow friends, view stats.
+              </p>
+              <div style={{ display: 'flex', gap: 'var(--space-12)', justifyContent: 'center' }}>
+                <button onClick={() => setShowView('stats')} className="btn-secondary">
+                  <Icon name="BarChart" size={20} />
+                  View Stats
+                </button>
+              </div>
+            </div>
+          ) : showView === 'following' ? (
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-20)' }}>
+                <h3 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', color: 'var(--text-primary)' }}>Following</h3>
+                <button onClick={() => setShowView('stats')} className="btn-ghost" style={{ padding: 'var(--space-8)' }}>
+                  <Icon name="X" size={20} />
+                </button>
+              </div>
+              {following.map((userId, i) => {
+                const followedUser = Object.values(USERS).find(u => u.id === userId);
+                return (
+                  <div key={userId} className="card animate-in" style={{ marginBottom: 'var(--space-12)', animationDelay: `${i * 40}ms` }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-16)' }}>
+                      <div className="avatar" style={{ width: '48px', height: '48px', fontSize: 'var(--text-lg)' }}>
+                        {followedUser.username[0].toUpperCase()}
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 'var(--text-base)', fontWeight: '700', color: 'var(--text-primary)', marginBottom: 'var(--space-4)' }}>
+                          {followedUser.name}
+                        </div>
+                        <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)' }}>
+                          @{followedUser.username}
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => onToggleFollow(userId)}
+                        className="btn-secondary"
+                        style={{ padding: 'var(--space-8) var(--space-16)' }}
+                      >
+                        <Icon name="UserMinus" size={16} />
+                        Unfollow
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-20)' }}>
+                <h3 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', color: 'var(--text-primary)' }}>Followers</h3>
+                <button onClick={() => setShowView('stats')} className="btn-ghost" style={{ padding: 'var(--space-8)' }}>
+                  <Icon name="X" size={20} />
+                </button>
+              </div>
+              {followers.map((userId, i) => {
+                const followerUser = Object.values(USERS).find(u => u.id === userId);
+                const isFollowing = following.includes(userId);
+                return (
+                  <div key={userId} className="card animate-in" style={{ marginBottom: 'var(--space-12)', animationDelay: `${i * 40}ms` }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-16)' }}>
+                      <div className="avatar" style={{ width: '48px', height: '48px', fontSize: 'var(--text-lg)' }}>
+                        {followerUser.username[0].toUpperCase()}
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 'var(--text-base)', fontWeight: '700', color: 'var(--text-primary)', marginBottom: 'var(--space-4)' }}>
+                          {followerUser.name}
+                        </div>
+                        <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)' }}>
+                          @{followerUser.username}
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => onToggleFollow(userId)}
+                        className={isFollowing ? 'btn-secondary' : 'btn-primary'}
+                        style={{ padding: 'var(--space-8) var(--space-16)' }}
+                      >
+                        <Icon name={isFollowing ? 'UserMinus' : 'UserPlus'} size={16} />
+                        {isFollowing ? 'Unfollow' : 'Follow'}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       );
     }
@@ -1645,6 +2045,254 @@
             </div>
           </div>
         </>
+      );
+    }
+
+    // ============================================================================
+    // WATCHLIST VIEW - COMPLETE
+    // ============================================================================
+    function WatchlistView({ onSelectShow, watchlist, onToggleWatchlist }) {
+      const watchlistEpisodes = EPISODES.filter(ep => watchlist.includes(ep.id));
+      
+      return (
+        <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', padding: 'var(--space-24)' }}>
+          <div style={{ marginBottom: 'var(--space-32)' }}>
+            <h1 style={{ fontSize: 'var(--text-3xl)', fontWeight: '800', color: 'var(--text-primary)', marginBottom: 'var(--space-8)' }}>Watchlist</h1>
+            <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)' }}>Episodes you want to watch</p>
+          </div>
+
+          {watchlistEpisodes.length === 0 ? (
+            <div className="card" style={{ padding: 'var(--space-40)', textAlign: 'center' }}>
+              <Icon name="Bookmark" size={48} style={{ color: 'var(--text-tertiary)', margin: '0 auto var(--space-16)' }} />
+              <h3 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: 'var(--space-12)', color: 'var(--text-primary)' }}>Your watchlist is empty</h3>
+              <p style={{ fontSize: 'var(--text-base)', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+                Add episodes you want to watch later
+              </p>
+            </div>
+          ) : (
+            watchlistEpisodes.map((ep, i) => {
+              const show = SHOWS.find(s => s.id === ep.showId);
+              return (
+                <div key={ep.id} className="card card-interactive animate-in" onClick={() => show && onSelectShow(show)} style={{ marginBottom: 'var(--space-16)', animationDelay: `${i * 40}ms` }}>
+                  <div style={{ display: 'flex', gap: 'var(--space-16)', marginBottom: 'var(--space-12)' }}>
+                    <img src={ep.image} alt={ep.name} style={{ width: '120px', height: '68px', borderRadius: 'var(--radius-md)', objectFit: 'cover', boxShadow: 'var(--shadow-sm)' }} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 'var(--text-sm)', color: 'var(--accent-primary)', fontWeight: '700', marginBottom: 'var(--space-6)' }}>{show?.name}</div>
+                      <div style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: 'var(--text-primary)', marginBottom: 'var(--space-6)' }}>{ep.name}</div>
+                      <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)' }}>S{ep.season}E{ep.episode}</div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onToggleWatchlist(ep.id); }}
+                    className="btn-ghost"
+                    style={{ width: '100%' }}
+                  >
+                    <Icon name="X" size={16} />
+                    Remove from Watchlist
+                  </button>
+                </div>
+              );
+            })
+          )}
+        </div>
+      );
+    }
+
+    // ============================================================================
+    // DIARY VIEW - COMPLETE
+    // ============================================================================
+    function DiaryView({ onSelectShow, diary, ratings }) {
+      const diaryEntries = Object.entries(diary).map(([episodeId, data]) => ({
+        episode: EPISODES.find(ep => ep.id === parseInt(episodeId)),
+        ...data,
+        episodeId: parseInt(episodeId)
+      })).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      return (
+        <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', padding: 'var(--space-24)' }}>
+          <div style={{ marginBottom: 'var(--space-32)' }}>
+            <h1 style={{ fontSize: 'var(--text-3xl)', fontWeight: '800', color: 'var(--text-primary)', marginBottom: 'var(--space-8)' }}>Diary</h1>
+            <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)' }}>Your watch history</p>
+          </div>
+
+          {diaryEntries.length === 0 ? (
+            <div className="card" style={{ padding: 'var(--space-40)', textAlign: 'center' }}>
+              <Icon name="Calendar" size={48} style={{ color: 'var(--text-tertiary)', margin: '0 auto var(--space-16)' }} />
+              <h3 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: 'var(--space-12)', color: 'var(--text-primary)' }}>No entries yet</h3>
+              <p style={{ fontSize: 'var(--text-base)', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+                Mark episodes as watched to build your viewing history
+              </p>
+            </div>
+          ) : (
+            diaryEntries.map((entry, i) => {
+              const show = SHOWS.find(s => s.id === entry.episode?.showId);
+              const userRating = ratings[entry.episodeId];
+              
+              return (
+                <div key={i} className="card card-interactive animate-in" onClick={() => show && onSelectShow(show)} style={{ marginBottom: 'var(--space-16)', animationDelay: `${i * 40}ms` }}>
+                  <div style={{ display: 'flex', gap: 'var(--space-16)' }}>
+                    <img src={entry.episode?.image} alt={entry.episode?.name} style={{ width: '120px', height: '68px', borderRadius: 'var(--radius-md)', objectFit: 'cover', boxShadow: 'var(--shadow-sm)' }} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 'var(--text-sm)', color: 'var(--accent-primary)', fontWeight: '700', marginBottom: 'var(--space-6)' }}>{show?.name}</div>
+                      <div style={{ fontSize: 'var(--text-base)', fontWeight: '600', color: 'var(--text-primary)', marginBottom: 'var(--space-8)' }}>{entry.episode?.name}</div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-16)', fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)' }}>
+                        <span>S{entry.episode?.season}E{entry.episode?.episode}</span>
+                        <span>•</span>
+                        <span>{new Date(entry.date).toLocaleDateString()}</span>
+                        {entry.service && (
+                          <>
+                            <span>•</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-6)' }}>
+                              <Icon name="Film" size={14} />
+                              <span>{entry.service}</span>
+                            </div>
+                          </>
+                        )}
+                        {entry.rewatch && (
+                          <>
+                            <span>•</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-6)' }}>
+                              <Icon name="Clock" size={14} />
+                              <span>Rewatch</span>
+                            </div>
+                          </>
+                        )}
+                        {userRating && (
+                          <>
+                            <span>•</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-6)', color: 'var(--accent-primary)' }}>
+                              <Icon name="Star" size={14} />
+                              <span style={{ fontWeight: '700' }}>{userRating}</span>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+      );
+    }
+
+    // ============================================================================
+    // STATS VIEW - COMPLETE
+    // ============================================================================
+    function StatsView({ ratings, hotTakes, diary }) {
+      const ratedCount = Object.keys(ratings).length;
+      const avgRating = ratedCount > 0 ? (Object.values(ratings).reduce((a, b) => a + b, 0) / ratedCount).toFixed(1) : '0.0';
+      const watchedCount = Object.keys(diary).length;
+      const takesCount = hotTakes.length;
+
+      // Genre breakdown
+      const genreCount = {};
+      Object.keys(ratings).forEach(epId => {
+        const ep = EPISODES.find(e => e.id === parseInt(epId));
+        if (ep) {
+          const show = SHOWS.find(s => s.id === ep.showId);
+          if (show) {
+            genreCount[show.genre] = (genreCount[show.genre] || 0) + 1;
+          }
+        }
+      });
+
+      // Rating distribution
+      const ratingDist = {};
+      Object.values(ratings).forEach(r => {
+        ratingDist[r] = (ratingDist[r] || 0) + 1;
+      });
+
+      return (
+        <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', padding: 'var(--space-24)' }}>
+          <div style={{ marginBottom: 'var(--space-32)' }}>
+            <h1 style={{ fontSize: 'var(--text-3xl)', fontWeight: '800', color: 'var(--text-primary)', marginBottom: 'var(--space-8)' }}>Stats</h1>
+            <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)' }}>Your viewing statistics</p>
+          </div>
+
+          {/* Overview */}
+          <div className="glass-card" style={{ padding: 'var(--space-24)', marginBottom: 'var(--space-24)' }}>
+            <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '700', marginBottom: 'var(--space-20)', color: 'var(--text-primary)' }}>Overview</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-24)' }}>
+              <div style={{ textAlign: 'center' }}>
+                <div className="text-gradient" style={{ fontSize: 'var(--text-4xl)', fontWeight: '800', marginBottom: 'var(--space-8)' }}>{watchedCount}</div>
+                <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)', fontWeight: '600' }}>Episodes Watched</div>
+              </div>
+              <div style={{ textAlign: 'center' }}>
+                <div className="text-gradient" style={{ fontSize: 'var(--text-4xl)', fontWeight: '800', marginBottom: 'var(--space-8)' }}>{ratedCount}</div>
+                <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)', fontWeight: '600' }}>Episodes Rated</div>
+              </div>
+              <div style={{ textAlign: 'center' }}>
+                <div className="text-gradient" style={{ fontSize: 'var(--text-4xl)', fontWeight: '800', marginBottom: 'var(--space-8)' }}>{avgRating}</div>
+                <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)', fontWeight: '600' }}>Avg Rating</div>
+              </div>
+              <div style={{ textAlign: 'center' }}>
+                <div className="text-gradient" style={{ fontSize: 'var(--text-4xl)', fontWeight: '800', marginBottom: 'var(--space-8)' }}>{takesCount}</div>
+                <div style={{ fontSize: 'var(--text-sm)', color: 'var(--text-tertiary)', fontWeight: '600' }}>Hot Takes</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Genre Breakdown */}
+          {Object.keys(genreCount).length > 0 && (
+            <div className="glass-card" style={{ padding: 'var(--space-24)', marginBottom: 'var(--space-24)' }}>
+              <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '700', marginBottom: 'var(--space-20)', color: 'var(--text-primary)' }}>By Genre</h3>
+              {Object.entries(genreCount).sort((a, b) => b[1] - a[1]).map(([genre, count]) => (
+                <div key={genre} style={{ marginBottom: 'var(--space-16)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 'var(--space-8)', fontSize: 'var(--text-sm)' }}>
+                    <span style={{ color: 'var(--text-primary)', fontWeight: '600' }}>{genre}</span>
+                    <span style={{ color: 'var(--accent-primary)', fontWeight: '700' }}>{count} episodes</span>
+                  </div>
+                  <div style={{ height: '8px', background: 'var(--bg-elevated)', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${(count / ratedCount) * 100}%`, background: 'var(--gradient-primary)', transition: 'width 0.5s ease-out' }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Rating Distribution */}
+          {Object.keys(ratingDist).length > 0 && (
+            <div className="glass-card" style={{ padding: 'var(--space-24)' }}>
+              <h3 style={{ fontSize: 'var(--text-lg)', fontWeight: '700', marginBottom: 'var(--space-20)', color: 'var(--text-primary)' }}>Rating Distribution</h3>
+              <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', height: '200px', gap: 'var(--space-8)' }}>
+                {[0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5].map(r => {
+                  const count = ratingDist[r] || 0;
+                  const maxCount = Math.max(...Object.values(ratingDist));
+                  const height = maxCount > 0 ? (count / maxCount) * 100 : 0;
+                  
+                  return (
+                    <div key={r} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-8)' }}>
+                      <div style={{ fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)', fontWeight: '700' }}>{count || ''}</div>
+                      <div
+                        style={{
+                          width: '100%',
+                          height: `${height}%`,
+                          background: 'var(--gradient-primary)',
+                          borderRadius: 'var(--radius-sm)',
+                          transition: 'height 0.5s ease-out',
+                          minHeight: count > 0 ? '8px' : '0'
+                        }}
+                      />
+                      <div style={{ fontSize: 'var(--text-xs)', color: 'var(--text-secondary)', fontWeight: '600' }}>{r}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {ratedCount === 0 && (
+            <div className="card" style={{ padding: 'var(--space-40)', textAlign: 'center' }}>
+              <Icon name="BarChart" size={48} style={{ color: 'var(--text-tertiary)', margin: '0 auto var(--space-16)' }} />
+              <h3 style={{ fontSize: 'var(--text-xl)', fontWeight: '700', marginBottom: 'var(--space-12)', color: 'var(--text-primary)' }}>No stats yet</h3>
+              <p style={{ fontSize: 'var(--text-base)', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+                Rate some episodes to see your statistics
+              </p>
+            </div>
+          )}
+        </div>
       );
     }
 
