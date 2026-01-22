@@ -255,22 +255,27 @@
     
     .main-content { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
     
-    /* HEADER */
-    .header { background: var(--bg-primary); padding: 12px 16px 8px; position: sticky; top: 0; z-index: 50; }
-    .header-title { font-family: var(--font-display); font-size: 22px; text-align: center; letter-spacing: 0; font-weight: 700; }
+    /* HEADER - LETTERBOXD EXACT */
+    .header { background: var(--bg-primary); padding: 14px 12px 6px; position: sticky; top: 0; z-index: 50; }
+    .header-title { font-family: var(--font-display); font-size: 24px; text-align: center; letter-spacing: 0; font-weight: 700; }
     .header-row { display: flex; align-items: center; justify-content: space-between; }
     .header-btn { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: none; color: var(--text-primary); cursor: pointer; }
     
-    /* TOP TABS */
-    .top-tabs { display: flex; padding: 6px 16px; background: var(--bg-tab-bar); border-bottom: 1px solid var(--divider); }
-    .top-tab { flex: 1; padding: 8px 12px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--text-secondary); background: transparent; border: none; cursor: pointer; text-align: center; position: relative; transition: all 0.2s; }
+    /* TOP TABS - LETTERBOXD EXACT */
+    .top-tabs { display: flex; padding: 4px 12px; background: var(--bg-tab-bar); }
+    .top-tab { flex: 1; padding: 10px 8px; border-radius: 6px; font-size: 15px; font-weight: 500; color: var(--text-secondary); background: transparent; border: none; cursor: pointer; text-align: center; position: relative; transition: all 0.15s; }
+    .top-tab:not(.active):not(:last-child)::after { content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 1px; height: 16px; background: rgba(255,255,255,0.15); }
     .top-tab.active { background: var(--bg-pill-active); color: var(--text-primary); font-weight: 600; }
-    .notification-dot { position: absolute; top: 4px; right: 4px; width: 8px; height: 8px; background: var(--brand-orange); border-radius: 50%; }
+    .top-tab.active::after { display: none; }
+    .notification-dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: var(--brand-orange); border-radius: 50%; }
     
     /* SEGMENT CONTROL - PIXEL PERFECT */
-    .segment-control { display: flex; background: var(--bg-tab-bar); border-radius: 8px; padding: 3px; margin: 12px 16px; }
-    .segment-btn { flex: 1; padding: 10px 12px; border-radius: 6px; font-size: 14px; font-weight: 500; color: var(--text-secondary); background: transparent; border: none; cursor: pointer; transition: all 0.2s; }
+    /* SEGMENT CONTROL - LETTERBOXD EXACT */
+    .segment-control { display: flex; background: var(--bg-tab-bar); border-radius: 8px; padding: 3px; margin: 12px 12px; }
+    .segment-btn { flex: 1; padding: 10px 12px; border-radius: 6px; font-size: 14px; font-weight: 500; color: var(--text-secondary); background: transparent; border: none; cursor: pointer; transition: all 0.2s; position: relative; }
+    .segment-btn:not(.active):not(:last-child)::after { content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 1px; height: 16px; background: rgba(255,255,255,0.15); }
     .segment-btn.active { background: var(--bg-pill-active); color: var(--text-primary); font-weight: 600; }
+    .segment-btn.active::after { display: none; }
     
     /* GENRE PILLS */
     .genre-pills { display: flex; gap: 8px; padding: 12px 16px; overflow-x: auto; }
@@ -278,12 +283,26 @@
     .genre-pill:active { transform: scale(0.95); }
     .genre-pill.active { background: var(--brand-green); color: #000; }
     
-    /* SECTION HEADER */
-    .section-header { font-size: 17px; font-weight: 700; padding: 16px 16px 12px; display: flex; justify-content: space-between; align-items: center; }
+    /* SECTION HEADER - LETTERBOXD STYLE */
+    .section-header { font-size: 16px; font-weight: 600; padding: 14px 12px 10px; display: flex; justify-content: space-between; align-items: center; }
     .section-header-action { font-size: 13px; font-weight: 500; color: var(--brand-blue); cursor: pointer; }
     
-    /* POSTER GRID 3-col - PIXEL PERFECT: 8px gap */
-    .poster-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 16px 16px; }
+    /* SPOTLIGHT SECTION - LETTERBOXD AD */
+    .spotlight-section { margin: 16px 12px; background: var(--bg-card); border-radius: 12px; overflow: hidden; }
+    .spotlight-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; }
+    .spotlight-title { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+    .spotlight-title em { font-style: normal; color: var(--text-secondary); font-weight: 400; }
+    .spotlight-badge { font-size: 10px; font-weight: 600; color: var(--text-muted); background: var(--bg-elevated); padding: 2px 6px; border-radius: 4px; }
+    .spotlight-content { display: flex; gap: 8px; padding: 0 14px 14px; }
+    .spotlight-poster { width: 100px; height: 130px; border-radius: 6px; object-fit: cover; background: #000; }
+    .spotlight-video { flex: 1; height: 130px; border-radius: 6px; background: var(--bg-elevated); position: relative; overflow: hidden; }
+    .spotlight-video img { width: 100%; height: 100%; object-fit: cover; }
+    .spotlight-play { position: absolute; bottom: 8px; right: 8px; width: 32px; height: 32px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .spotlight-play svg { color: #000; margin-left: 2px; }
+    .spotlight-desc { font-size: 13px; color: var(--text-secondary); padding: 0 14px 14px; line-height: 1.4; }
+    
+    /* POSTER GRID 3-col - LETTERBOXD EXACT: 4px gap */
+    .poster-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 0 12px 12px; }
     .poster-item { aspect-ratio: 2/3; border-radius: 4px; overflow: hidden; cursor: pointer; position: relative; background: var(--bg-card); transition: transform 0.1s; }
     .poster-item:active { transform: scale(0.96); }
     .poster-item.selected { outline: 3px solid var(--brand-green); outline-offset: -3px; }
@@ -329,14 +348,14 @@
     .spoiler-text { font-size: 14px; color: var(--text-tertiary); }
     
     /* LIST CARD */
-    .list-card { padding: 16px; border-bottom: 1px solid var(--divider); cursor: pointer; }
+    .list-card { padding: 16px 12px; border-bottom: 1px solid var(--divider); cursor: pointer; }
     .list-card:active { background: var(--bg-elevated); }
-    .list-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 4px; }
-    .list-title { font-size: 17px; font-weight: 700; flex: 1; }
-    .list-user { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .list-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+    .list-title { font-size: 16px; font-weight: 600; flex: 1; color: var(--brand-green); }
+    .list-user { display: flex; align-items: center; gap: 8px; }
     .list-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; }
-    .list-posters-scroll { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
-    .list-poster-sm { width: 70px; height: 105px; border-radius: 4px; object-fit: cover; flex-shrink: 0; background: var(--bg-card); }
+    .list-posters-scroll { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 8px; margin: 0 -12px; padding-left: 12px; padding-right: 12px; -webkit-overflow-scrolling: touch; }
+    .list-posters-scroll::-webkit-scrollbar { display: none; }
     .list-meta { display: flex; gap: 16px; font-size: 13px; color: var(--text-tertiary); margin-top: 8px; }
     .list-meta-item { display: flex; align-items: center; gap: 4px; }
     .list-private-badge { font-size: 10px; background: var(--bg-input); color: var(--text-secondary); padding: 2px 6px; border-radius: 4px; margin-left: 8px; }
@@ -1383,45 +1402,50 @@
     .toggle-knob { position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; background: white; border-radius: 50%; transition: transform 0.2s; }
     .toggle.active .toggle-knob { transform: translateX(20px); }
     
-    /* LOGIN - AUDIT FIX: seamless button stack */
+    /* LOGIN - LETTERBOXD EXACT */
     .login-screen { display: flex; flex-direction: column; min-height: 100%; }
-    .login-backdrop { flex: 1; background-size: cover; background-position: center; position: relative; }
-    .login-backdrop::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(20,24,28,0.3) 0%, rgba(20,24,28,0.95) 70%, var(--bg-primary) 100%); }
-    .login-content { position: relative; z-index: 1; padding: 0 24px 32px; text-align: center; }
-    .login-logo { display: flex; justify-content: center; gap: 0; margin-bottom: 20px; }
-    .logo-circle { width: 48px; height: 48px; border-radius: 50%; margin: 0 -8px; }
+    .login-backdrop { flex: 1; min-height: 55vh; background-size: cover; background-position: center top; position: relative; }
+    .login-backdrop::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 30%, rgba(20,24,28,0.8) 60%, var(--bg-primary) 100%); }
+    .login-content { position: relative; z-index: 1; padding: 0 0 20px; text-align: center; margin-top: -80px; }
+    .login-logo { display: flex; justify-content: center; gap: 0; margin-bottom: 12px; }
+    .logo-circle { width: 56px; height: 56px; border-radius: 50%; margin: 0 -10px; }
     .logo-orange { background: var(--brand-orange); }
     .logo-green { background: var(--brand-green); }
     .logo-blue { background: var(--brand-blue); }
-    .login-title { font-family: var(--font-display); font-size: 32px; font-weight: 700; letter-spacing: 0; margin-bottom: 0; }
-    .login-tagline { font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; display: none; }
-    .login-buttons { border-radius: 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.1); }
-    .login-btn { width: 100%; padding: 16px; font-size: 17px; font-weight: 400; border: none; cursor: pointer; display: block; text-align: left; background: transparent; color: var(--text-primary); border-bottom: 1px solid rgba(255,255,255,0.08); }
-    .login-btn:last-child { border-bottom: none; }
-    .login-btn-primary { }
-    .login-btn-divider { }
-    .login-btn-ghost { color: var(--text-secondary); }
-    .login-footer { font-size: 13px; color: var(--text-muted); margin-top: 24px; line-height: 1.5; }
-    .carousel-dots { display: flex; justify-content: center; gap: 8px; padding: 20px 0; }
-    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); }
-    .carousel-dot.active { background: var(--text-primary); }
+    .login-title { font-family: var(--font-display); font-size: 36px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 16px; }
+    .login-buttons { border-top: 1px solid rgba(255,255,255,0.1); }
+    .login-btn { width: 100%; padding: 18px 20px; font-size: 17px; font-weight: 400; border: none; cursor: pointer; display: block; text-align: left; background: transparent; color: var(--text-primary); border-bottom: 1px solid rgba(255,255,255,0.08); transition: background 0.15s; }
+    .login-btn:active { background: rgba(255,255,255,0.05); }
+    .login-artwork { font-size: 13px; color: var(--text-muted); padding: 20px 20px 0; text-align: center; }
+    .login-artwork strong { color: var(--text-secondary); }
+    .login-nav { background: rgba(28,34,40,0.95); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
+    .login-nav .nav-item { color: var(--brand-blue); }
+    .login-nav .nav-item:not(.active) { color: var(--text-muted); }
     
-    /* ONBOARDING */
-    .onboarding-screen { min-height: 100%; background: linear-gradient(to bottom, #2A3642 0%, var(--bg-primary) 60%); display: flex; flex-direction: column; }
-    .onboarding-poster-row { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 40px 0 20px; }
-    .onboarding-poster { width: 100px; height: 150px; border-radius: 6px; object-fit: cover; opacity: 0.6; }
-    .onboarding-poster.center { width: 140px; height: 210px; opacity: 1; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
-    .onboarding-actions { display: flex; justify-content: center; gap: 24px; padding: 16px 0; }
-    .onboarding-action { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-tertiary); }
-    .onboarding-action svg { width: 28px; height: 28px; }
-    .onboarding-action span { font-size: 11px; }
-    .onboarding-content { flex: 1; padding: 20px 24px; text-align: center; }
-    .onboarding-title { font-size: 24px; font-weight: 700; margin-bottom: 16px; }
+    /* ONBOARDING - LETTERBOXD EXACT */
+    .onboarding-screen { min-height: 100%; background: #0B0D0F; display: flex; flex-direction: column; }
+    .onboarding-poster-row { display: flex; justify-content: center; align-items: center; padding: 60px 0 16px; position: relative; }
+    .onboarding-poster { border-radius: 6px; object-fit: cover; }
+    .onboarding-poster.left, .onboarding-poster.right { width: 80px; height: 120px; opacity: 0.4; }
+    .onboarding-poster.left { margin-right: -20px; z-index: 1; }
+    .onboarding-poster.right { margin-left: -20px; z-index: 1; }
+    .onboarding-center { z-index: 2; text-align: center; }
+    .onboarding-poster.center { width: 200px; height: 300px; box-shadow: 0 12px 40px rgba(0,0,0,0.6); }
+    .onboarding-movie-title { font-size: 14px; font-weight: 600; letter-spacing: 4px; color: var(--text-secondary); margin-top: 12px; }
+    .onboarding-actions { display: flex; justify-content: center; gap: 20px; padding: 20px 0; position: relative; }
+    .onboarding-action { display: flex; flex-direction: column; align-items: center; position: relative; }
+    .onboarding-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+    .onboarding-icon.watched { color: var(--brand-green); }
+    .onboarding-icon.liked { color: var(--brand-orange); }
+    .handwritten { font-family: 'Caveat', cursive, sans-serif; font-size: 18px; color: var(--text-secondary); position: absolute; white-space: nowrap; }
+    .handwritten.left { top: -5px; left: -80px; transform: rotate(-8deg); }
+    .onboarding-action:nth-child(2) .handwritten { top: 50px; left: 50%; transform: translateX(-50%) rotate(5deg); }
+    .onboarding-content { flex: 1; padding: 16px 28px; text-align: center; }
+    .onboarding-title { font-size: 26px; font-weight: 700; margin-bottom: 16px; }
     .onboarding-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
-    .onboarding-buttons { display: flex; gap: 0; margin-top: auto; padding: 16px 24px 32px; }
-    .onboarding-btn { flex: 1; padding: 16px; font-size: 15px; font-weight: 600; border: none; cursor: pointer; }
-    .onboarding-btn-skip { background: var(--bg-action-sheet); color: var(--text-primary); border-radius: 8px 0 0 8px; }
-    .onboarding-btn-action { background: var(--brand-green); color: #000; border-radius: 0 8px 8px 0; }
+    .onboarding-desc strong { color: var(--text-primary); }
+    .onboarding-buttons { display: flex; padding: 0; border-top: 1px solid var(--divider); }
+    .onboarding-btn { flex: 1; padding: 18px; font-size: 16px; font-weight: 600; border: none; cursor: pointer; }
     
     /* ============================================
        ROCKETWATCH v5.0 - NEW AUDIT FEATURES
@@ -1523,274 +1547,193 @@
     // DATA - EXPANDED FOR CATEGORY 5
     const SHOWS = [
       { 
-        id: 1, name: 'Love Island', year: '2024', genre: 'Reality', 
-        poster: 'https://image.tmdb.org/t/p/w500/h9f3vNGZGDRqOw26uwDMYhSLZ01.jpg',
-        backdrop: 'https://image.tmdb.org/t/p/w1280/qb3FGYv8FPBWHkREPTLqXSvPCxW.jpg',
-        runtime: 60, seasons: 11, episodes: 198,
-        synopsis: 'British dating game show in which singles looking for love live together in a villa in Mallorca, Spain.',
-        director: 'Various',
-        cast: [{ name: 'Maya Jama', role: 'Host', photo: 'https://image.tmdb.org/t/p/w185/6Qvx8hJVxNj8oBW0k94vHXNdY6L.jpg' }],
-        crew: [{ name: 'Richard Cowles', role: 'Executive Producer' }],
-        studio: 'ITV Studios', country: 'UK', language: 'English',
-        communityRating: 3.2, watchCount: 45200, likeCount: 12300,
-        streaming: [{ name: 'Hulu', type: 'stream' }, { name: 'Peacock', type: 'stream' }],
-        trailer: 'dQw4w9WgXcQ',
-        similar: [2, 5, 4]
+        id: 1, name: '28 Days Later: The Bone Temple', year: '2025', genre: 'Horror', 
+        poster: 'https://image.tmdb.org/t/p/w500/dKrWA1rttME8v6EPzLIFZKisMHe.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/zOpe0eHsq0A2NvNyBbtT6sj53qV.jpg',
+        runtime: 141, director: 'Danny Boyle',
+        synopsis: 'The third installment of the 28 Days Later franchise. Survivors navigate a world still reeling from the Rage virus.',
+        cast: [{ name: 'Cillian Murphy', role: 'Jim', photo: 'https://image.tmdb.org/t/p/w185/dm6V24NjjvjMiCtbMkc8Y2WPm2e.jpg' }],
+        communityRating: 4.1, watchCount: 234000, likeCount: 156000,
+        streaming: [{ name: 'Theaters', type: 'theater' }]
       },
       { 
-        id: 2, name: 'The Bachelor', year: '2024', genre: 'Reality', 
-        poster: 'https://image.tmdb.org/t/p/w500/mKadW8gXqVdg01IJYkMHNrzoZ3a.jpg',
-        backdrop: 'https://image.tmdb.org/t/p/w1280/zFTKe8hppAKLSvPJ0jXWfatvT6r.jpg',
-        runtime: 120, seasons: 28, episodes: 350,
-        synopsis: 'A single bachelor dates multiple women over several weeks, narrowing them down to hopefully find his true love.',
-        director: 'Various',
-        cast: [{ name: 'Jesse Palmer', role: 'Host', photo: 'https://image.tmdb.org/t/p/w185/zN5XM9k9wPpL2K2R0f8e2CxQemH.jpg' }],
-        crew: [{ name: 'Mike Fleiss', role: 'Creator' }],
-        studio: 'Warner Bros. Television', country: 'USA', language: 'English',
-        communityRating: 2.8, watchCount: 89000, likeCount: 23000,
-        streaming: [{ name: 'ABC', type: 'stream' }, { name: 'Hulu', type: 'stream' }],
-        trailer: 'dQw4w9WgXcQ',
-        similar: [1, 5, 4]
+        id: 2, name: 'People We Meet on Vacation', year: '2025', genre: 'Romance', 
+        poster: 'https://image.tmdb.org/t/p/w500/A1ORX5G2djmWYxYhqojK4vtYYAv.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/pxJbfnMIQQxCrdeLD0zQnWr6ouL.jpg',
+        runtime: 118, director: 'Brett Haley',
+        synopsis: 'Best friends Alex and Poppy take annual summer vacations together until a falling out. Two years later, they reunite for one more trip.',
+        cast: [{ name: 'Tom Holland', role: 'Alex', photo: 'https://image.tmdb.org/t/p/w185/bBRlrpJm9XkNSg0YT5LCaxqoFMX.jpg' }],
+        communityRating: 3.8, watchCount: 189000, likeCount: 134000,
+        streaming: [{ name: 'Netflix', type: 'stream' }]
       },
       { 
-        id: 3, name: 'Survivor', year: '2024', genre: 'Reality', 
-        poster: 'https://image.tmdb.org/t/p/w500/ddYkNcvJJ1FJFy3SaZfqTXExkPc.jpg',
-        backdrop: 'https://image.tmdb.org/t/p/w1280/zXq2gL1qVEP3Y3d2nRqMeFh6Xbg.jpg',
-        runtime: 60, seasons: 46, episodes: 650,
-        synopsis: 'A reality show where a group of contestants are stranded in a remote location with little more than the clothes on their back.',
-        director: 'Various',
-        cast: [{ name: 'Jeff Probst', role: 'Host', photo: 'https://image.tmdb.org/t/p/w185/ar1h3bPj0Z37V91gXZG0LFyQQzv.jpg' }],
-        crew: [{ name: 'Mark Burnett', role: 'Creator' }],
-        studio: 'CBS', country: 'USA', language: 'English',
-        communityRating: 4.1, watchCount: 156000, likeCount: 78000,
-        streaming: [{ name: 'Paramount+', type: 'stream' }, { name: 'CBS', type: 'stream' }],
-        trailer: 'dQw4w9WgXcQ',
-        similar: [4, 6, 1]
+        id: 3, name: 'Marty Supreme', year: '2025', genre: 'Drama', 
+        poster: 'https://image.tmdb.org/t/p/w500/eO0QV5qJaEngP1Ax9w3eV6bJG2f.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/7h6TqPB3ESmjuVbxCxAeB1c9OB1.jpg',
+        runtime: 135, director: 'Josh Safdie',
+        synopsis: 'The story of legendary ping pong champion Marty Reisman and his rise through the underground world of table tennis.',
+        cast: [{ name: 'Timothée Chalamet', role: 'Marty Reisman', photo: 'https://image.tmdb.org/t/p/w185/BE2sdjpgsa2rNTFa66f7upkaOP.jpg' }],
+        communityRating: 4.2, watchCount: 312000, likeCount: 245000,
+        streaming: [{ name: 'A24', type: 'theater' }]
       },
       { 
-        id: 4, name: 'The Traitors', year: '2024', genre: 'Reality', 
-        poster: 'https://image.tmdb.org/t/p/w500/7FN2nmpApXjLjQJKmJBLqZF91pz.jpg',
-        backdrop: 'https://image.tmdb.org/t/p/w1280/hQG3XRPbfLffT7Mhj5XqEGxJzPP.jpg',
-        runtime: 70, seasons: 3, episodes: 36,
-        synopsis: 'Contestants compete in a series of missions while trying to identify who among them are "traitors" secretly plotting to steal the prize.',
-        director: 'Various',
-        cast: [{ name: 'Alan Cumming', role: 'Host', photo: 'https://image.tmdb.org/t/p/w185/hxZkBjCCEj8b2hPdANP7N1dJXTG.jpg' }],
-        crew: [{ name: 'Stephen Lambert', role: 'Executive Producer' }],
-        studio: 'Peacock', country: 'USA', language: 'English',
-        communityRating: 4.3, watchCount: 67000, likeCount: 45000,
-        streaming: [{ name: 'Peacock', type: 'stream' }],
-        trailer: 'dQw4w9WgXcQ',
-        similar: [3, 6, 1]
+        id: 4, name: 'The Rip', year: '2025', genre: 'Thriller', 
+        poster: 'https://image.tmdb.org/t/p/w500/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/fypydCipcWDKDTTCoPucBsdGYXW.jpg',
+        runtime: 112, director: 'Various',
+        synopsis: 'A gripping thriller about survival against the odds in a remote coastal town.',
+        cast: [{ name: 'Florence Pugh', role: 'Lead', photo: 'https://image.tmdb.org/t/p/w185/6gLYsPd4TV0BQzXDTjV8kiVlw1P.jpg' }],
+        communityRating: 3.9, watchCount: 145000, likeCount: 98000,
+        streaming: [{ name: 'Theaters', type: 'theater' }]
       },
       { 
-        id: 5, name: 'Love Is Blind', year: '2024', genre: 'Reality', 
-        poster: 'https://image.tmdb.org/t/p/w500/bHKgb4ShQ8AsCPFe3K4HQC64aKP.jpg',
-        backdrop: 'https://image.tmdb.org/t/p/w1280/2Yih7vHN8AlnM7vBPnZRx4KJsBz.jpg',
-        runtime: 55, seasons: 7, episodes: 72,
-        synopsis: 'Singles try to find a match and fall in love without ever seeing each other, as emotional connection tries to conquer physical attraction.',
-        director: 'Various',
-        cast: [{ name: 'Nick Lachey', role: 'Host', photo: 'https://image.tmdb.org/t/p/w185/eBqzwv3sMuUkQPMXK3IhSP2rX1q.jpg' }, { name: 'Vanessa Lachey', role: 'Host', photo: 'https://image.tmdb.org/t/p/w185/6QOT4Cce4qLMXKYlBNWbzPKXxBZ.jpg' }],
-        crew: [{ name: 'Chris Coelen', role: 'Creator' }],
-        studio: 'Netflix', country: 'USA', language: 'English',
-        communityRating: 3.5, watchCount: 234000, likeCount: 89000,
-        streaming: [{ name: 'Netflix', type: 'stream' }],
-        trailer: 'dQw4w9WgXcQ',
-        similar: [1, 2, 4]
+        id: 5, name: 'No Other Choice', year: '2025', genre: 'Drama', 
+        poster: 'https://image.tmdb.org/t/p/w500/2CAL2433ZeIihfX1Hb2139CX0pW.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/gMJngTNfaqCSCqGD4y8lVMZXKDe.jpg',
+        runtime: 128, director: 'Various',
+        synopsis: 'A coming-of-age story set against the backdrop of a changing world.',
+        cast: [{ name: 'Zendaya', role: 'Lead', photo: 'https://image.tmdb.org/t/p/w185/6TE2AlOUqcwMHq0dJY3OsEsBzQZ.jpg' }],
+        communityRating: 4.0, watchCount: 167000, likeCount: 123000,
+        streaming: [{ name: 'Max', type: 'stream' }]
       },
       { 
-        id: 6, name: 'The Circle', year: '2024', genre: 'Reality', 
-        poster: 'https://image.tmdb.org/t/p/w500/iLfxuPBWgDg5556UsmREzA9cNiA.jpg',
-        backdrop: 'https://image.tmdb.org/t/p/w1280/p1PP3R9YbyCSqcPvBYIdjYiPSFC.jpg',
-        runtime: 45, seasons: 7, episodes: 91,
-        synopsis: 'Players compete for popularity and $100,000 while living in the same building but never meeting in person.',
-        director: 'Various',
-        cast: [{ name: 'Michelle Buteau', role: 'Host', photo: 'https://image.tmdb.org/t/p/w185/mCLKOHwqXnULmJFqFnJkDYbMVZM.jpg' }],
-        crew: [{ name: 'Studio Lambert', role: 'Production' }],
-        studio: 'Netflix', country: 'USA', language: 'English',
-        communityRating: 3.8, watchCount: 178000, likeCount: 67000,
-        streaming: [{ name: 'Netflix', type: 'stream' }],
-        trailer: 'dQw4w9WgXcQ',
-        similar: [4, 3, 5]
-      },
-      { 
-        id: 11, name: 'The Last of Us', year: '2024', genre: 'Drama', 
-        poster: 'https://image.tmdb.org/t/p/w500/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg',
-        backdrop: 'https://image.tmdb.org/t/p/w1280/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg',
-        runtime: 55, seasons: 2, episodes: 17,
-        synopsis: 'Twenty years after modern civilization has been destroyed, Joel is hired to smuggle Ellie out of an oppressive quarantine zone.',
-        director: 'Craig Mazin',
+        id: 6, name: 'The Housemaid', year: '2025', genre: 'Thriller', 
+        poster: 'https://image.tmdb.org/t/p/w500/6Gf12BKqEmD2FNY4KhulYT4jvSt.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/3V4kLQg0kSqPLctI5ziYWMZiiKq.jpg',
+        runtime: 131, director: 'Paul Feig',
+        synopsis: 'Millie accepts a job as a live-in housemaid for the wealthy Winchesters. But what begins as a dream job quickly unravels into something far more dangerous.',
         cast: [
-          { name: 'Pedro Pascal', role: 'Joel Miller', photo: 'https://image.tmdb.org/t/p/w185/9VYK7oxcqhjd5LAH6ZFJ3XzOlID.jpg' },
-          { name: 'Bella Ramsey', role: 'Ellie Williams', photo: 'https://image.tmdb.org/t/p/w185/cOtzU3rX9TkJKzmzjm7mBKOdewz.jpg' }
+          { name: 'Sydney Sweeney', role: 'Millie', photo: 'https://image.tmdb.org/t/p/w185/qYiaSl0Eb7G3VaxOg8PxExCFwon.jpg' },
+          { name: 'Amanda Seyfried', role: 'Nina', photo: 'https://image.tmdb.org/t/p/w185/dqT7GqfLC0sGcvXZ6KOGYI8v9uo.jpg' }
         ],
-        crew: [{ name: 'Craig Mazin', role: 'Creator' }, { name: 'Neil Druckmann', role: 'Creator' }],
-        studio: 'HBO', country: 'USA', language: 'English',
-        communityRating: 4.6, watchCount: 890000, likeCount: 567000,
-        streaming: [{ name: 'Max', type: 'stream' }, { name: 'Amazon', type: 'rent', price: '$3.99' }],
-        trailer: 'uLtkt8BonwM',
-        similar: [14, 13, 15]
+        communityRating: 3.7, watchCount: 456000, likeCount: 234000,
+        streaming: [{ name: 'Prime Video', type: 'stream' }]
       },
       { 
-        id: 12, name: 'The Bear', year: '2024', genre: 'Drama', 
-        poster: 'https://image.tmdb.org/t/p/w500/zMpJY5CizTJfH8njYsYk87S9eHf.jpg',
-        backdrop: 'https://image.tmdb.org/t/p/w1280/fNylhsqfm8uH8gXLKcP3k1tvnyv.jpg',
-        runtime: 30, seasons: 3, episodes: 28,
-        synopsis: 'A young chef from the fine dining world returns to Chicago to run his family\'s sandwich shop after a tragedy.',
-        director: 'Christopher Storer',
+        id: 7, name: 'Hamnet', year: '2025', genre: 'Drama', 
+        poster: 'https://image.tmdb.org/t/p/w500/nE5BZ4c7N37dH3MqLxwK8L5WxVY.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/bteMpF7TAuDo9LWkHqYCQ7dQZXy.jpg',
+        runtime: 124, director: 'Chloe Zhao',
+        synopsis: 'The story of Shakespeare\'s only son Hamnet, who died at age 11. Based on Maggie O\'Farrell\'s bestselling novel.',
+        cast: [{ name: 'Paul Mescal', role: 'William Shakespeare', photo: 'https://image.tmdb.org/t/p/w185/8qBylBsQf4llkGrWR3qAsOtOU8O.jpg' }],
+        communityRating: 4.3, watchCount: 198000, likeCount: 167000,
+        streaming: [{ name: 'Apple TV+', type: 'stream' }]
+      },
+      { 
+        id: 8, name: 'Avatar: Fire and Ash', year: '2025', genre: 'Sci-Fi', 
+        poster: 'https://image.tmdb.org/t/p/w500/aT8V3a0FSSpQR6tFLtwxD18EV9r.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/hu40Ber0s7V9chhuN90lG6qPwvQ.jpg',
+        runtime: 198, director: 'James Cameron',
+        synopsis: 'Jake Sully and Neytiri face a new threat on Pandora: the Ash People, a violent and power-hungry Na\'vi tribe led by the ruthless Varang.',
         cast: [
-          { name: 'Jeremy Allen White', role: 'Carmen "Carmy" Berzatto', photo: 'https://image.tmdb.org/t/p/w185/6E7dYLYwdPCptKNuU8fKl3w3s2R.jpg' },
-          { name: 'Ayo Edebiri', role: 'Sydney Adamu', photo: 'https://image.tmdb.org/t/p/w185/ceLLSq3r5n1VPV8lDOqCNhJ4xCK.jpg' },
-          { name: 'Ebon Moss-Bachrach', role: 'Richard "Richie" Jerimovich', photo: 'https://image.tmdb.org/t/p/w185/p6aQ5iPCDwYQJvVm3Z3rxLCzPjY.jpg' }
+          { name: 'Sam Worthington', role: 'Jake Sully', photo: 'https://image.tmdb.org/t/p/w185/blKKsHlJIL9PmUQZB8f3YmMBW5Y.jpg' },
+          { name: 'Zoe Saldaña', role: 'Neytiri', photo: 'https://image.tmdb.org/t/p/w185/iOVbUH20il632nj2v01NCtYYeSg.jpg' }
         ],
-        crew: [{ name: 'Christopher Storer', role: 'Creator' }],
-        studio: 'FX', country: 'USA', language: 'English',
-        communityRating: 4.7, watchCount: 678000, likeCount: 456000,
-        streaming: [{ name: 'Hulu', type: 'stream' }, { name: 'Disney+', type: 'stream' }],
-        trailer: 'y-cqqAJIXhs',
-        similar: [13, 15, 16],
-        imdbId: 'tt14452776',
-        tmdbId: '136315'
+        communityRating: 4.0, watchCount: 890000, likeCount: 567000,
+        streaming: [{ name: 'Disney+', type: 'stream' }]
       },
       { 
-        id: 13, name: 'Severance', year: '2024', genre: 'Drama', 
-        poster: 'https://image.tmdb.org/t/p/w500/lFqJzi7XFuzp3cp6rFxPYL5Frdm.jpg',
-        backdrop: 'https://image.tmdb.org/t/p/w1280/9z3CCXR7UsCWqmGXVj5aJP0Tc6p.jpg',
-        runtime: 55, seasons: 2, episodes: 19,
+        id: 9, name: 'One Battle After Another', year: '2025', genre: 'Action', 
+        poster: 'https://image.tmdb.org/t/p/w500/vHMdJF6A3V0bI0g11dJACMNPHwq.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/8ZNGBfGoN3uI5Hk9FdvmOLPjFFX.jpg',
+        runtime: 142, director: 'Various',
+        synopsis: 'An intense action thriller following a soldier through multiple conflicts.',
+        cast: [{ name: 'Glen Powell', role: 'Lead', photo: 'https://image.tmdb.org/t/p/w185/hGJfZ3tW0g1cT4tbhNYDQbHq8Y1.jpg' }],
+        communityRating: 3.6, watchCount: 234000, likeCount: 145000,
+        streaming: [{ name: 'Peacock', type: 'stream' }]
+      },
+      { 
+        id: 10, name: 'Oppenheimer', year: '2023', genre: 'Drama', 
+        poster: 'https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg',
+        runtime: 180, director: 'Christopher Nolan',
+        synopsis: 'The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.',
+        cast: [{ name: 'Cillian Murphy', role: 'J. Robert Oppenheimer', photo: 'https://image.tmdb.org/t/p/w185/dm6V24NjjvjMiCtbMkc8Y2WPm2e.jpg' }],
+        communityRating: 4.5, watchCount: 1200000, likeCount: 890000,
+        streaming: [{ name: 'Peacock', type: 'stream' }]
+      },
+      { 
+        id: 11, name: 'Dune: Part Two', year: '2024', genre: 'Sci-Fi', 
+        poster: 'https://image.tmdb.org/t/p/w500/8b8R8l88Qje9dn9OE8PY05Nxl1X.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/xOMo8BRK7PfcJv9JCnx7s5hj0PX.jpg',
+        runtime: 166, director: 'Denis Villeneuve',
+        synopsis: 'Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family.',
+        cast: [{ name: 'Timothée Chalamet', role: 'Paul Atreides', photo: 'https://image.tmdb.org/t/p/w185/BE2sdjpgsa2rNTFa66f7upkaOP.jpg' }],
+        communityRating: 4.4, watchCount: 980000, likeCount: 756000,
+        streaming: [{ name: 'Max', type: 'stream' }]
+      },
+      { 
+        id: 12, name: 'Severance', year: '2025', genre: 'Drama', 
+        poster: 'https://image.tmdb.org/t/p/w500/lq9gP9LjzfJBQzkJSvnPbGOEfpG.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/xvKqHXuP0c31Dx1dlXf5VKRYkbp.jpg',
+        runtime: 55, director: 'Ben Stiller',
         synopsis: 'Mark leads a team of office workers whose memories have been surgically divided between their work and personal lives.',
-        director: 'Ben Stiller',
-        cast: [
-          { name: 'Adam Scott', role: 'Mark Scout', photo: 'https://image.tmdb.org/t/p/w185/1A2IYN1E3r9LQj5lnN84j7o0jxr.jpg' },
-          { name: 'Britt Lower', role: 'Helly Riggs', photo: 'https://image.tmdb.org/t/p/w185/5Pj9c4ArcnKJNbDhxP5ihD3yZm2.jpg' },
-          { name: 'John Turturro', role: 'Irving Bailiff', photo: 'https://image.tmdb.org/t/p/w185/gMGzwsYkEt0p6XJnYC0n8IJRwpp.jpg' },
-          { name: 'Zach Cherry', role: 'Dylan George', photo: 'https://image.tmdb.org/t/p/w185/8sCbFNt26VLdXNEPJe6M5r8YlLX.jpg' },
-          { name: 'Patricia Arquette', role: 'Harmony Cobel', photo: 'https://image.tmdb.org/t/p/w185/rPGkjHzxyQIXHqB5ERjCKvnUkK8.jpg' },
-          { name: 'Christopher Walken', role: 'Burt Goodman', photo: 'https://image.tmdb.org/t/p/w185/vl61kWdWnNMreLXaQAsW6MvdaJG.jpg' }
-        ],
-        crew: [{ name: 'Dan Erickson', role: 'Creator' }, { name: 'Ben Stiller', role: 'Director' }],
-        studio: 'Apple TV+', country: 'USA', language: 'English',
-        communityRating: 4.8, watchCount: 567000, likeCount: 423000,
-        streaming: [{ name: 'Apple TV+', type: 'stream' }],
-        trailer: 'xEQP4VVuyrY',
-        similar: [11, 15, 16],
-        imdbId: 'tt11280740',
-        tmdbId: '95396'
+        cast: [{ name: 'Adam Scott', role: 'Mark Scout', photo: 'https://image.tmdb.org/t/p/w185/6O94t9WrfFXpLBl3rfQkXhAp50F.jpg' }],
+        communityRating: 4.6, watchCount: 567000, likeCount: 456000,
+        streaming: [{ name: 'Apple TV+', type: 'stream' }]
       },
       { 
-        id: 14, name: 'House of the Dragon', year: '2024', genre: 'Drama', 
-        poster: 'https://image.tmdb.org/t/p/w500/7QMsOTMUswlwxJP0rTTZfmz2tX2.jpg',
-        backdrop: 'https://image.tmdb.org/t/p/w1280/etj8E2o0Bud0HkONVQPjyCkIvpv.jpg',
-        runtime: 60, seasons: 2, episodes: 18,
-        synopsis: 'The story of the Targaryen civil war that took place about 200 years before events portrayed in Game of Thrones.',
-        director: 'Ryan Condal',
-        cast: [
-          { name: 'Matt Smith', role: 'Prince Daemon Targaryen', photo: 'https://image.tmdb.org/t/p/w185/fUCSMTolBH5sZLwmOHxb6pqL7Lu.jpg' },
-          { name: 'Emma D\'Arcy', role: 'Queen Rhaenyra Targaryen', photo: 'https://image.tmdb.org/t/p/w185/vQM6P0u6xaHgDX9Rb4Xv5o9NZQR.jpg' },
-          { name: 'Olivia Cooke', role: 'Queen Alicent Hightower', photo: 'https://image.tmdb.org/t/p/w185/pKXpB7OHR8x4yfPMYVhK9i6N2RA.jpg' }
-        ],
-        crew: [{ name: 'Ryan Condal', role: 'Creator' }, { name: 'George R.R. Martin', role: 'Creator' }],
-        studio: 'HBO', country: 'USA', language: 'English',
-        communityRating: 4.4, watchCount: 789000, likeCount: 345000,
-        streaming: [{ name: 'Max', type: 'stream' }],
-        trailer: 'DotnJ7tTA34',
-        similar: [15, 11, 16],
-        imdbId: 'tt11198330',
-        tmdbId: '94997'
+        id: 13, name: 'The Bear', year: '2024', genre: 'Drama', 
+        poster: 'https://image.tmdb.org/t/p/w500/sHFlbKS3WLqMnp9t2ghADIJFnuQ.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/vNuHX5XqIhG9sbfg3LVcGqmOTq5.jpg',
+        runtime: 30, director: 'Christopher Storer',
+        synopsis: 'A young chef from the fine dining world returns to Chicago to run his family sandwich shop.',
+        cast: [{ name: 'Jeremy Allen White', role: 'Carmy', photo: 'https://image.tmdb.org/t/p/w185/6E7dYLYwdPCptKNuU8fKl3w3s2R.jpg' }],
+        communityRating: 4.7, watchCount: 789000, likeCount: 654000,
+        streaming: [{ name: 'Hulu', type: 'stream' }]
       },
       { 
-        id: 15, name: 'Succession', year: '2023', genre: 'Drama', 
-        poster: 'https://image.tmdb.org/t/p/w500/7HW47XbkNQ5fiwQFYGWdw9gs144.jpg',
-        backdrop: 'https://image.tmdb.org/t/p/w1280/xfBjvJp1v6UBbl0c5EePz8gYrEh.jpg',
-        runtime: 60, seasons: 4, episodes: 39,
-        synopsis: 'The Roy family is known for controlling the biggest media and entertainment company in the world.',
-        director: 'Jesse Armstrong',
-        cast: [
-          { name: 'Brian Cox', role: 'Logan Roy', photo: 'https://image.tmdb.org/t/p/w185/wHN64eH0T4s6sCXvBjB7qrIw6MV.jpg' },
-          { name: 'Jeremy Strong', role: 'Kendall Roy', photo: 'https://image.tmdb.org/t/p/w185/fpAv7U2qyTDKDCsVRUmXhPfTzZu.jpg' },
-          { name: 'Sarah Snook', role: 'Siobhan "Shiv" Roy', photo: 'https://image.tmdb.org/t/p/w185/xT98Bm3xMz2g6pYAaLUdhT0w9rs.jpg' },
-          { name: 'Kieran Culkin', role: 'Roman Roy', photo: 'https://image.tmdb.org/t/p/w185/wp03kPDOZpkrIbE8QlDRjbWHT9H.jpg' },
-          { name: 'Matthew Macfadyen', role: 'Tom Wambsgans', photo: 'https://image.tmdb.org/t/p/w185/2FF3Yjxd7DYR4EIJL6s2GpKDMkJ.jpg' }
-        ],
-        crew: [{ name: 'Jesse Armstrong', role: 'Creator' }],
-        studio: 'HBO', country: 'USA', language: 'English',
-        communityRating: 4.9, watchCount: 1200000, likeCount: 890000,
-        streaming: [{ name: 'Max', type: 'stream' }, { name: 'Amazon', type: 'rent', price: '$3.99' }],
-        trailer: 'OzYxJV_rmE8',
-        similar: [16, 12, 13],
-        imdbId: 'tt7660850',
-        tmdbId: '76331'
+        id: 14, name: 'Poor Things', year: '2023', genre: 'Drama', 
+        poster: 'https://image.tmdb.org/t/p/w500/kCGlIMHnOm8JPXq3rXM6c5wMxcT.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/bQS43HSLZzMjZkcHJz4fGc7fNdz.jpg',
+        runtime: 141, director: 'Yorgos Lanthimos',
+        synopsis: 'The incredible tale of Bella Baxter, a young woman brought back to life by the brilliant and unorthodox scientist Dr. Godwin Baxter.',
+        cast: [{ name: 'Emma Stone', role: 'Bella Baxter', photo: 'https://image.tmdb.org/t/p/w185/2hwXbPW2ffnXUe1Um0WXHG0cTwb.jpg' }],
+        communityRating: 4.2, watchCount: 456000, likeCount: 345000,
+        streaming: [{ name: 'Hulu', type: 'stream' }]
       },
       { 
-        id: 16, name: 'The White Lotus', year: '2024', genre: 'Drama', 
-        poster: 'https://image.tmdb.org/t/p/w500/gH5i3JbnLsyTvcImlofNvXtH3i5.jpg',
-        backdrop: 'https://image.tmdb.org/t/p/w1280/bHvVufsyDvL8FgLyoKwpLqbGJw3.jpg',
-        runtime: 60, seasons: 3, episodes: 20,
-        synopsis: 'Follow the exploits of various guests and employees at an exclusive tropical resort over a week.',
-        director: 'Mike White',
-        cast: [
-          { name: 'Jennifer Coolidge', role: 'Tanya McQuoid', photo: 'https://image.tmdb.org/t/p/w185/h2uNPTwG2p1B8qPSgRj6e3B4Ptv.jpg' },
-          { name: 'Aubrey Plaza', role: 'Harper Spiller', photo: 'https://image.tmdb.org/t/p/w185/j7DKJJdWXhJcM3RYpP4lLT5bZ3T.jpg' }
-        ],
-        crew: [{ name: 'Mike White', role: 'Creator' }],
-        studio: 'HBO', country: 'USA', language: 'English',
-        communityRating: 4.5, watchCount: 567000, likeCount: 345000,
-        streaming: [{ name: 'Max', type: 'stream' }],
-        trailer: 'TGLq7_dqt9w',
-        similar: [15, 12, 13]
+        id: 15, name: 'Anora', year: '2024', genre: 'Drama', 
+        poster: 'https://image.tmdb.org/t/p/w500/7MrgIUeq0DD2iF7GR6wqJfYZNeC.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/4cp40IyTpFfsT2IKpl0YlUkMBIR.jpg',
+        runtime: 139, director: 'Sean Baker',
+        synopsis: 'A young sex worker from Brooklyn gets her chance at a Cinderella story when she meets and impulsively marries the son of an oligarch.',
+        cast: [{ name: 'Mikey Madison', role: 'Anora', photo: 'https://image.tmdb.org/t/p/w185/kBNOLOC89Lj7r3LxC4qvp2Ykdcg.jpg' }],
+        communityRating: 4.4, watchCount: 345000, likeCount: 278000,
+        streaming: [{ name: 'Theaters', type: 'theater' }]
       },
       { 
-        id: 21, name: 'Abbott Elementary', year: '2024', genre: 'Comedy', 
-        poster: 'https://image.tmdb.org/t/p/w500/fLZJHG8gXF0H1fCYd6cCMKDMkQD.jpg',
-        backdrop: 'https://image.tmdb.org/t/p/w1280/pKXapsfznvNPV8ik1bLztDC5QM4.jpg',
-        runtime: 22, seasons: 4, episodes: 60,
-        synopsis: 'A group of dedicated teachers are brought together in a Philadelphia public school where, despite the odds stacked against them, they are determined to help their students succeed in life.',
-        director: 'Quinta Brunson',
-        cast: [
-          { name: 'Quinta Brunson', role: 'Janine Teagues', photo: 'https://image.tmdb.org/t/p/w185/v1Jq4sJt8xKdaGE6LX4Xrr46QZS.jpg' },
-          { name: 'Tyler James Williams', role: 'Gregory Eddie', photo: 'https://image.tmdb.org/t/p/w185/xK7vjP08pJOeuyYv32xfAW3SzGi.jpg' }
-        ],
-        crew: [{ name: 'Quinta Brunson', role: 'Creator' }],
-        studio: 'ABC', country: 'USA', language: 'English',
-        communityRating: 4.3, watchCount: 456000, likeCount: 234000,
-        streaming: [{ name: 'Hulu', type: 'stream' }, { name: 'ABC', type: 'stream' }],
-        trailer: 'DiV4Bj0SQOU',
-        similar: [22, 23, 12]
+        id: 16, name: 'The Brutalist', year: '2024', genre: 'Drama', 
+        poster: 'https://image.tmdb.org/t/p/w500/zp2Yczmmj92gOnJ3mvKQ0LhcYWA.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/euYIwmwkmz95mnXvufEmbL6ovhZ.jpg',
+        runtime: 215, director: 'Brady Corbet',
+        synopsis: 'A visionary architect and his wife flee post-war Europe for America where they try to rebuild their lives.',
+        cast: [{ name: 'Adrien Brody', role: 'László Tóth', photo: 'https://image.tmdb.org/t/p/w185/l4LwPb6NNqp0hkc4VFNacSCXXgN.jpg' }],
+        communityRating: 4.3, watchCount: 234000, likeCount: 189000,
+        streaming: [{ name: 'A24', type: 'theater' }]
       },
       { 
-        id: 22, name: 'Hacks', year: '2024', genre: 'Comedy', 
-        poster: 'https://image.tmdb.org/t/p/w500/pxb3FLLpJKU6rAcP0nQmTY2L95p.jpg',
-        backdrop: 'https://image.tmdb.org/t/p/w1280/dR9HoYpQyA7HTJGiirJG6p8N4Ne.jpg',
-        runtime: 30, seasons: 3, episodes: 28,
-        synopsis: 'A dark mentorship forms between Deborah Vance, a legendary Las Vegas comedian, and an entitled, outcast 25-year-old.',
-        director: 'Lucia Aniello',
+        id: 17, name: 'Wicked', year: '2024', genre: 'Musical', 
+        poster: 'https://image.tmdb.org/t/p/w500/xDGbZ0JJ3mYaGKy4Nzd9Kph6M9L.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/uKb22E0nlzr914bA9KyA5CVCNcq.jpg',
+        runtime: 160, director: 'Jon M. Chu',
+        synopsis: 'The untold story of the witches of Oz, based on the hit Broadway musical.',
         cast: [
-          { name: 'Jean Smart', role: 'Deborah Vance', photo: 'https://image.tmdb.org/t/p/w185/tKijM7qZEqTG1GnXQ1pKzMwzJWW.jpg' },
-          { name: 'Hannah Einbinder', role: 'Ava Daniels', photo: 'https://image.tmdb.org/t/p/w185/sNzaB6DsIKE7hLlH9y4zHEX4rDT.jpg' }
+          { name: 'Cynthia Erivo', role: 'Elphaba', photo: 'https://image.tmdb.org/t/p/w185/2qxpQnBYPqSwN9NqTuX7nQvlqRi.jpg' },
+          { name: 'Ariana Grande', role: 'Glinda', photo: 'https://image.tmdb.org/t/p/w185/1P8NlFOJnDcLnU8fVWIBuYgDGJU.jpg' }
         ],
-        crew: [{ name: 'Lucia Aniello', role: 'Creator' }, { name: 'Paul W. Downs', role: 'Creator' }],
-        studio: 'HBO Max', country: 'USA', language: 'English',
-        communityRating: 4.4, watchCount: 234000, likeCount: 156000,
-        streaming: [{ name: 'Max', type: 'stream' }],
-        trailer: 'gXCNhCQb1qo',
-        similar: [21, 23, 12]
+        communityRating: 4.1, watchCount: 678000, likeCount: 534000,
+        streaming: [{ name: 'Peacock', type: 'stream' }]
       },
       { 
-        id: 23, name: 'What We Do in the Shadows', year: '2024', genre: 'Comedy', 
-        poster: 'https://image.tmdb.org/t/p/w500/chckIPxBbvyFCcCFz5NJwPAkawf.jpg',
-        backdrop: 'https://image.tmdb.org/t/p/w1280/je6hLxo9u6KbKHChQ4WTFYx3y4h.jpg',
-        runtime: 25, seasons: 6, episodes: 57,
-        synopsis: 'A documentary-style look into the daily lives of four vampires who\'ve been roommates for hundreds of years in Staten Island.',
-        director: 'Jemaine Clement',
-        cast: [
-          { name: 'Kayvan Novak', role: 'Nandor', photo: 'https://image.tmdb.org/t/p/w185/3AY0TZHMUmvDZz5q42UqSYVSKKb.jpg' },
-          { name: 'Matt Berry', role: 'Laszlo Cravensworth', photo: 'https://image.tmdb.org/t/p/w185/bH3Xk5aX0NbHw3Z5nkJZUZ0nCW7.jpg' },
-          { name: 'Natasia Demetriou', role: 'Nadja', photo: 'https://image.tmdb.org/t/p/w185/dL8r5z4HNPCCNbDt9y1YZCJ5E8y.jpg' }
-        ],
-        crew: [{ name: 'Jemaine Clement', role: 'Creator' }, { name: 'Taika Waititi', role: 'Creator' }],
-        studio: 'FX', country: 'USA', language: 'English',
-        communityRating: 4.5, watchCount: 345000, likeCount: 234000,
-        streaming: [{ name: 'Hulu', type: 'stream' }, { name: 'Disney+', type: 'stream' }],
-        trailer: 'VLdTB8nJvmA',
-        similar: [21, 22, 12]
+        id: 18, name: 'Nosferatu', year: '2024', genre: 'Horror', 
+        poster: 'https://image.tmdb.org/t/p/w500/5qGIxdEO841C0tdY8ypiYgj2sBH.jpg',
+        backdrop: 'https://image.tmdb.org/t/p/w1280/yVJWYs1K3VDjXVnVyBuBqUVjTa2.jpg',
+        runtime: 132, director: 'Robert Eggers',
+        synopsis: 'A gothic tale of obsession between a haunted young woman and the terrifying vampire infatuated with her.',
+        cast: [{ name: 'Lily-Rose Depp', role: 'Ellen Hutter', photo: 'https://image.tmdb.org/t/p/w185/gkYxhq8A4aslXJpzwT3n5TwC0bH.jpg' }],
+        communityRating: 4.0, watchCount: 456000, likeCount: 345000,
+        streaming: [{ name: 'Max', type: 'stream' }]
       },
     ];
     
@@ -1960,17 +1903,17 @@
         website: 'https://tvlover.blog',
         twitter: 'tvlover',
         backdrop: 'https://image.tmdb.org/t/p/w1280/9z3CCXR7UsCWqmGXVj5aJP0Tc6p.jpg',
-        topFour: [1, 3, 5, 6], // Show IDs for favorite shows
-        pinnedReviews: [101], // Review IDs
-        pinnedLists: [4], // List IDs
+        topFour: [1, 3, 5, 6],
+        pinnedReviews: [101],
+        pinnedLists: [4],
         badge: 'patron',
       },
-      ari: { id: 'ari', username: 'ari', displayName: 'Ari', pronouns: 'she/her', bio: 'Film school dropout, TV enthusiast.', location: 'Brooklyn, NY' },
-      princess: { id: 'princess', username: 'PrincessLucas', displayName: 'Princess Lucas', pronouns: 'she/her', badge: 'patron', bio: 'Curator of comfort watches.', topFour: [1, 2, 3, 4] },
+      drew: { id: 'drew', username: 'fcbarcelona', displayName: 'FC Barcelona Fan', bio: 'Making lists since 2019.', location: 'Barcelona, Spain' },
+      princess: { id: 'princess', username: 'Dave', displayName: 'Dave', pronouns: 'he/him', badge: 'patron', bio: 'Curator of film lists.', topFour: [1, 2, 3, 4] },
+      nolan: { id: 'nolan', username: 'bel', displayName: 'Bel', badge: 'pro', bio: 'Movies that make you feel something.', twitter: 'belfilms' },
       lobo: { id: 'lobo', username: '✧lobotomommy✧', displayName: 'Lobo', badge: 'crew', bio: 'I watch too much TV and have opinions.', pronouns: 'she/they' },
-      drew: { id: 'drew', username: 'Drew Cowen', displayName: 'Drew', bio: 'Making lists since 2019.', location: 'Austin, TX', website: 'https://drewreviews.com' },
+      ari: { id: 'ari', username: 'ari', displayName: 'Ari', pronouns: 'she/her', bio: 'Film school dropout, TV enthusiast.', location: 'Brooklyn, NY' },
       bryan: { id: 'bryan', username: 'Bryan Howell', displayName: 'Bryan', pronouns: 'he/him' },
-      nolan: { id: 'nolan', username: 'nolanfilms', displayName: 'Nolan', badge: 'pro', bio: 'Director wannabe. Comfort show collector.', twitter: 'nolanfilms' },
     };
     
     // Activity from people you follow - EXACTLY matching screenshot
@@ -1986,20 +1929,20 @@
     ];
     
     const REVIEWS = [
-      { id: 1, userId: 'lobo', showId: 12, showName: 'The Bear', year: 2024, rating: 5, text: '**Yes Chef.** That\'s it. That\'s the review. Actually no—this show made me feel things I didn\'t know I could feel about a kitchen. The *anxiety* is real but so is the heart.', date: 'Jan 18, 2025', poster: SHOWS.find(s => s.id === 12).poster, hasSpoilers: false, likes: 847 },
-      { id: 2, userId: 'princess', showId: 13, showName: 'Severance', year: 2024, rating: 4.5, text: '**MAJOR SPOILER:** When we find out that Helly is actually *Helena Eagan*, the daughter of the company CEO, it completely reframes everything we thought we knew about her character. The finale\'s dance sequence is haunting.', date: 'Jan 15, 2025', poster: SHOWS.find(s => s.id === 13).poster, hasSpoilers: true, likes: 1203 },
-      { id: 3, userId: 'sarah', showId: 15, showName: 'Succession', year: 2023, rating: 5, text: 'The most **Shakespearean** show on television. Every character is awful and I love them all. Logan Roy is a monster but *Brian Cox* makes you understand why his children keep coming back.', date: 'Jan 12, 2025', poster: SHOWS.find(s => s.id === 15).poster, hasSpoilers: false, likes: 2156 },
+      { id: 1, userId: 'lobo', showId: 13, showName: 'The Bear', year: 2024, rating: 5, text: '**Yes Chef.** That\'s it. That\'s the review. Actually no—this show made me feel things I didn\'t know I could feel about a kitchen. The *anxiety* is real but so is the heart.', date: 'Jan 18, 2025', poster: SHOWS.find(s => s.id === 13)?.poster || SHOWS[0].poster, hasSpoilers: false, likes: 847 },
+      { id: 2, userId: 'princess', showId: 12, showName: 'Severance', year: 2025, rating: 4.5, text: '**MAJOR SPOILER:** When we find out that Helly is actually *Helena Eagan*, the daughter of the company CEO, it completely reframes everything we thought we knew about her character. The finale\'s dance sequence is haunting.', date: 'Jan 15, 2025', poster: SHOWS.find(s => s.id === 12)?.poster || SHOWS[1].poster, hasSpoilers: true, likes: 1203 },
+      { id: 3, userId: 'ari', showId: 10, showName: 'Oppenheimer', year: 2023, rating: 5, text: 'The most **visually stunning** film I\'ve ever seen. Cillian Murphy delivers a career-defining performance. Christopher Nolan at his peak.', date: 'Jan 12, 2025', poster: SHOWS.find(s => s.id === 10)?.poster || SHOWS[2].poster, hasSpoilers: false, likes: 2156 },
     ];
     
     const LISTS = [
       { 
         id: 1, 
         userId: 'drew', 
-        title: 'Movies everyone should watch at least once', 
-        desc: 'I asked reddit whats one movie everyone should watch at least once in their lifetime.', 
+        title: 'Movies everyone should watch at least once during their lifetime', 
+        desc: 'I asked reddit whats one movie everyone should watch at least once in their lifetime to create a list of movies that everyone should watch.\n\nLink to thread:\nwww.reddit.com/r/movies/comments/178uqki/whats_a_movi...', 
         posters: SHOWS.slice(0, 6).map(s => s.poster),
         entries: SHOWS.slice(0, 6).map((s, i) => ({ showId: s.id, position: i + 1, note: i === 0 ? 'Absolute masterpiece' : '' })),
-        isRanked: true,
+        isRanked: false,
         isPublic: true,
         allowComments: true,
         likes: 1247,
@@ -2010,40 +1953,40 @@
       { 
         id: 2, 
         userId: 'princess', 
-        title: 'Best TV Shows of the 2020s', 
-        desc: 'The definitive ranking of prestige television this decade.', 
-        posters: SHOWS.slice(0, 4).map(s => s.poster),
-        entries: SHOWS.slice(0, 4).map((s, i) => ({ showId: s.id, position: i + 1, note: '' })),
+        title: 'Official Top 250 Narrative Feature Films', 
+        desc: "Letterboxd's Top 250 movies, based on the average weighted rating of all Letterboxd users. I removed all stand-up specials, stage plays, concert films, documentaries, shorts, 'collection listings', re-edits and other 'rarities', so only feature length narrative movies are listed here. Films should have a minimu...", 
+        posters: SHOWS.slice(0, 7).map(s => s.poster),
+        entries: SHOWS.slice(0, 7).map((s, i) => ({ showId: s.id, position: i + 1, note: '' })),
         isRanked: true,
         isPublic: true,
         allowComments: true,
-        likes: 892,
-        comments: 156,
+        likes: 4892,
+        comments: 256,
         createdAt: '2025-01-10',
-        tags: ['2020s', 'prestige-tv']
+        tags: ['top-250', 'all-time']
       },
       { 
         id: 3, 
         userId: 'nolan', 
-        title: 'Comfort Watches', 
-        desc: 'Shows I put on when I need to feel better.', 
-        posters: [SHOWS[2].poster, SHOWS[4].poster, SHOWS[6].poster],
-        entries: [{ showId: SHOWS[2].id, position: 1, note: 'Always calms me down' }, { showId: SHOWS[4].id, position: 2, note: '' }, { showId: SHOWS[6].id, position: 3, note: '' }],
+        title: 'for when you want to feel something', 
+        desc: 'Emotional movies that hit different.', 
+        posters: SHOWS.slice(2, 9).map(s => s.poster),
+        entries: SHOWS.slice(2, 9).map((s, i) => ({ showId: s.id, position: i + 1, note: '' })),
         isRanked: false,
         isPublic: true,
         allowComments: false,
-        likes: 234,
-        comments: 12,
+        likes: 2341,
+        comments: 78,
         createdAt: '2025-01-05',
-        tags: ['comfort', 'rewatch']
+        tags: ['emotional', 'feelings']
       },
       { 
         id: 4, 
         userId: 'me', 
         title: 'My Watchlist Priorities', 
         desc: 'What I need to watch next, in order.', 
-        posters: SHOWS.slice(6, 10).map(s => s.poster),
-        entries: SHOWS.slice(6, 10).map((s, i) => ({ showId: s.id, position: i + 1, note: i === 0 ? 'Everyone keeps recommending this' : '' })),
+        posters: SHOWS.slice(6, 12).map(s => s.poster),
+        entries: SHOWS.slice(6, 12).map((s, i) => ({ showId: s.id, position: i + 1, note: i === 0 ? 'Everyone keeps recommending this' : '' })),
         isRanked: true,
         isPublic: false,
         allowComments: false,
@@ -2055,10 +1998,10 @@
     ];
     
     const DIARY_ENTRIES = [
-      { id: 1, day: '21', fullDate: '2025-01-21', showName: 'Severance', year: 2024, rating: 4.5, liked: true, rewatch: false, poster: SHOWS.find(s => s.id === 13).poster, isDraft: false, tags: ['binged', 'at:home'] },
-      { id: 2, day: '20', fullDate: '2025-01-20', showName: 'The Bear', year: 2024, rating: 5, liked: true, rewatch: true, poster: SHOWS.find(s => s.id === 12).poster, isDraft: false, tags: ['with:partner', 'comfort-watch'] },
-      { id: 3, day: '18', fullDate: '2025-01-18', showName: 'The White Lotus', year: 2024, rating: 4.5, liked: true, rewatch: false, poster: SHOWS.find(s => s.id === 16).poster, isDraft: true, tags: [] },
-      { id: 4, day: '15', fullDate: '2025-01-15', showName: 'Succession', year: 2023, rating: 5, liked: true, rewatch: false, poster: SHOWS.find(s => s.id === 15).poster, isDraft: false, tags: ['binged'] },
+      { id: 1, day: '21', fullDate: '2025-01-21', showName: 'Severance', year: 2025, rating: 4.5, liked: true, rewatch: false, poster: SHOWS.find(s => s.id === 12)?.poster || SHOWS[0].poster, isDraft: false, tags: ['binged', 'at:home'] },
+      { id: 2, day: '20', fullDate: '2025-01-20', showName: 'The Bear', year: 2024, rating: 5, liked: true, rewatch: true, poster: SHOWS.find(s => s.id === 13)?.poster || SHOWS[1].poster, isDraft: false, tags: ['with:partner', 'comfort-watch'] },
+      { id: 3, day: '18', fullDate: '2025-01-18', showName: 'Oppenheimer', year: 2023, rating: 4.5, liked: true, rewatch: false, poster: SHOWS.find(s => s.id === 10)?.poster || SHOWS[2].poster, isDraft: true, tags: [] },
+      { id: 4, day: '15', fullDate: '2025-01-15', showName: 'Dune: Part Two', year: 2024, rating: 5, liked: true, rewatch: false, poster: SHOWS.find(s => s.id === 11)?.poster || SHOWS[3].poster, isDraft: false, tags: ['binged'] },
     ];
     
     const MOVIE_QUOTES = [
@@ -2084,7 +2027,7 @@
           : <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
         
         Star: <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
-        Films: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="2"/><rect x="6" y="6" width="12" height="12" rx="1"/></svg>,
+        Films: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="5" width="14" height="18" rx="2"/><rect x="7" y="1" width="14" height="18" rx="2"/></svg>,
         Search: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>,
         Plus: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
         Activity: <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>,
@@ -3696,7 +3639,7 @@
         return (
           <div className="app">
             <div className="login-screen">
-              <div className="login-backdrop" style={{ backgroundImage: 'url(https://image.tmdb.org/t/p/w1280/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg)' }} />
+              <div className="login-backdrop" style={{ backgroundImage: 'url(https://image.tmdb.org/t/p/w1280/hu40Ber0s7V9chhuN90lG6qPwvQ.jpg)' }} />
               <div className="login-content">
                 <div className="login-logo">
                   <div className="logo-circle logo-orange" />
@@ -3704,20 +3647,18 @@
                   <div className="logo-circle logo-blue" />
                 </div>
                 <h1 className="login-title">RocketWatch</h1>
-                <p className="login-tagline">The social network for TV lovers.</p>
                 
                 <div className="login-buttons">
-                  <button className="login-btn login-btn-primary" onClick={() => { setScreen('main'); setShowTrackingPermission(true); }}>Sign in</button>
-                  <button className="login-btn login-btn-divider">Create account</button>
-                  <button className="login-btn login-btn-ghost" onClick={() => setScreen('onboarding')}>Skip this step</button>
+                  <button className="login-btn" onClick={() => { setScreen('main'); setShowTrackingPermission(true); }}>Sign in</button>
+                  <button className="login-btn">Create account</button>
+                  <button className="login-btn" onClick={() => setScreen('onboarding')}>Open the tour</button>
                 </div>
                 
-                <p className="login-footer">An account is not required to browse content, but you must have one to track episodes and participate.</p>
-                <div className="carousel-dots">{[0,1,2,3,4,5].map(i => <div key={i} className={`carousel-dot ${i === 0 ? 'active' : ''}`} />)}</div>
+                <p className="login-artwork">Artwork from <strong>Avatar: Fire and Ash</strong></p>
               </div>
             </div>
-            <div className="bottom-nav">
-              <button className="nav-item active"><Icon name="Profile" size={24} filled /></button>
+            <div className="bottom-nav login-nav">
+              <button className="nav-item active"><Icon name="Users" size={24} /></button>
               <button className="nav-item"><Icon name="Films" size={24} /></button>
               <button className="nav-item"><Icon name="Search" size={24} /></button>
             </div>
@@ -3728,27 +3669,43 @@
       // ONBOARDING
       if (screen === 'onboarding') {
         return (
-          <div className="app">
+          <div className="app" style={{ background: '#0B0D0F' }}>
             <div className="onboarding-screen">
               <div className="onboarding-poster-row">
-                <img src={SHOWS[10].poster} alt="" className="onboarding-poster" />
-                <img src={SHOWS[11].poster} alt="" className="onboarding-poster center" />
-                <img src={SHOWS[12].poster} alt="" className="onboarding-poster" />
+                <img src="https://image.tmdb.org/t/p/w342/iiXliCeykkzmJ0Eg9RYJ7F2CWSz.jpg" alt="" className="onboarding-poster left" />
+                <div className="onboarding-center">
+                  <img src="https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg" alt="" className="onboarding-poster center" />
+                  <div className="onboarding-movie-title">OPPENHEIMER</div>
+                </div>
+                <img src="https://image.tmdb.org/t/p/w342/d8Ryb8AunYAuycVKDp5HpdWPKgC.jpg" alt="" className="onboarding-poster right" />
               </div>
+              
               <div className="onboarding-actions">
-                <div className="onboarding-action"><Icon name="Eye" size={28} /><span>I've watched it!</span></div>
-                <div className="onboarding-action" style={{ color: 'var(--brand-orange)' }}><Icon name="Heart" size={28} filled /><span>loved it!</span></div>
-                <div className="onboarding-action"><Icon name="Star" size={28} /></div>
-                <div className="onboarding-action"><Icon name="Clock" size={28} filled /></div>
+                <div className="onboarding-action">
+                  <div className="onboarding-icon watched"><Icon name="Eye" size={28} filled /></div>
+                  <span className="handwritten left">I've watched it!</span>
+                </div>
+                <div className="onboarding-action">
+                  <div className="onboarding-icon liked"><Icon name="Heart" size={28} filled /></div>
+                  <span className="handwritten">loved it!</span>
+                </div>
+                <div className="onboarding-action">
+                  <div className="onboarding-icon"><Icon name="Star" size={28} /></div>
+                </div>
+                <div className="onboarding-action">
+                  <div className="onboarding-icon"><Icon name="Clock" size={28} filled /></div>
+                </div>
               </div>
+              
               <div className="onboarding-content">
                 <h2 className="onboarding-title">Get started</h2>
-                <p className="onboarding-desc">Would you like to browse our most popular shows and tell us what you've watched and liked?</p>
-                <p className="onboarding-desc">Titles you mark as watched are added to the <strong>Films</strong> tab on your profile, and used to recommend content and improve filters.</p>
+                <p className="onboarding-desc">Would you like to browse our most popular films and tell us what you've watched and liked? Titles you mark as watched are added to the <strong>Films</strong> tab on your profile, and used to recommend content and improve filters.</p>
+                <p className="onboarding-desc">If you skip this part, you can browse films at any time from the <strong>Search</strong> tab, and enable 'carousel mode' from there and other screens.</p>
               </div>
+              
               <div className="onboarding-buttons">
-                <button className="onboarding-btn onboarding-btn-skip" onClick={() => setScreen('main')}>Skip for now</button>
-                <button className="onboarding-btn onboarding-btn-action" onClick={() => setScreen('main')}>Browse shows</button>
+                <button className="onboarding-btn skip" onClick={() => setScreen('main')}>Skip for now</button>
+                <button className="onboarding-btn action" onClick={() => setScreen('main')}>Browse films</button>
               </div>
             </div>
           </div>
@@ -3800,18 +3757,18 @@
               </div>
               <div className="profile-tabs-scroll">
                 <button className={`profile-tab ${profileTab === 'profile' ? 'active' : ''}`} onClick={() => setProfileTab('profile')}>Profile</button>
-                <button className={`profile-tab ${profileTab === 'films' ? 'active' : ''}`} onClick={() => setProfileTab('films')}>
-                  Films<span className="profile-tab-count">{Object.values(watched).filter(Boolean).length}</span>
-                </button>
                 <button className={`profile-tab ${profileTab === 'diary' ? 'active' : ''}`} onClick={() => setProfileTab('diary')}>Diary</button>
-                <button className={`profile-tab ${profileTab === 'reviews' ? 'active' : ''}`} onClick={() => setProfileTab('reviews')}>
-                  Reviews<span className="profile-tab-count">{userReviews.length}</span>
+                <button className={`profile-tab ${profileTab === 'lists' ? 'active' : ''}`} onClick={() => setProfileTab('lists')}>
+                  Lists<span className="profile-tab-count">{getMyLists().length}</span>
                 </button>
                 <button className={`profile-tab ${profileTab === 'watchlist' ? 'active' : ''}`} onClick={() => setProfileTab('watchlist')}>
                   Watchlist<span className="profile-tab-count">{Object.values(watchlist).filter(Boolean).length}</span>
                 </button>
-                <button className={`profile-tab ${profileTab === 'lists' ? 'active' : ''}`} onClick={() => setProfileTab('lists')}>
-                  Lists<span className="profile-tab-count">{getMyLists().length}</span>
+                <button className={`profile-tab ${profileTab === 'films' ? 'active' : ''}`} onClick={() => setProfileTab('films')}>
+                  Films<span className="profile-tab-count">{Object.values(watched).filter(Boolean).length}</span>
+                </button>
+                <button className={`profile-tab ${profileTab === 'reviews' ? 'active' : ''}`} onClick={() => setProfileTab('reviews')}>
+                  Reviews<span className="profile-tab-count">{userReviews.length}</span>
                 </button>
                 <button className={`profile-tab ${profileTab === 'likes' ? 'active' : ''}`} onClick={() => setProfileTab('likes')}>Likes</button>
                 <button className={`profile-tab ${profileTab === 'tags' ? 'active' : ''}`} onClick={() => setProfileTab('tags')}>Tags</button>
@@ -3828,29 +3785,32 @@
             {/* FILMS TAB */}
             {bottomTab === 'home' && mainTab === 'films' && (
               <>
-                <div className="genre-pills">
-                  {['All', 'Reality', 'Drama', 'Comedy'].map(g => (
-                    <button key={g} className={`genre-pill ${genreFilter === g ? 'active' : ''}`} onClick={() => setGenreFilter(g)}>{g}</button>
-                  ))}
-                </div>
                 <div className="section-header">
                   <span>Popular this week</span>
-                  <span className="section-header-action" onClick={() => setBulkSelectMode(!bulkSelectMode)}>
-                    {bulkSelectMode ? 'Cancel' : 'Select Multiple'}
-                  </span>
                 </div>
                 <div className="poster-grid">
-                  {filteredShows.map(show => (
+                  {SHOWS.map(show => (
                     <div key={show.id} className={`poster-item ${selectedForBulk[show.id] ? 'selected' : ''}`} onClick={() => handleEpisodePress({ id: show.id, poster: show.poster, showName: show.name, season: 1, episode: 1, name: 'Episode 1', year: show.year })}>
                       <img src={show.poster} alt={show.name} className="poster-img" />
-                      {watched[show.id] && !bulkSelectMode && <div className="poster-watched"><Icon name="Check" size={12} /></div>}
-                      {bulkSelectMode && (
-                        <div className={`poster-select ${selectedForBulk[show.id] ? 'checked' : ''}`}>
-                          {selectedForBulk[show.id] && <Icon name="Check" size={14} />}
-                        </div>
-                      )}
+                      {watched[show.id] && <div className="poster-watched"><Icon name="Check" size={12} /></div>}
                     </div>
                   ))}
+                </div>
+                
+                {/* SPOTLIGHT PROMO SECTION */}
+                <div className="spotlight-section">
+                  <div className="spotlight-header">
+                    <span className="spotlight-title">Spotlight <em>Severance</em></span>
+                    <span className="spotlight-badge">AD</span>
+                  </div>
+                  <div className="spotlight-content">
+                    <img src="https://image.tmdb.org/t/p/w200/lq9gP9LjzfJBQzkJSvnPbGOEfpG.jpg" alt="" className="spotlight-poster" />
+                    <div className="spotlight-video">
+                      <img src="https://image.tmdb.org/t/p/w500/xvKqHXuP0c31Dx1dlXf5VKRYkbp.jpg" alt="" />
+                      <div className="spotlight-play"><Icon name="Play" size={14} /></div>
+                    </div>
+                  </div>
+                  <div className="spotlight-desc">Season 2 now streaming. The critically acclaimed workplace thriller returns.</div>
                 </div>
               </>
             )}
@@ -4196,7 +4156,7 @@
                 
                 {/* Popular Lists */}
                 <div className="section-header" style={{ marginTop: 16 }}>
-                  <span>Popular Lists</span>
+                  <span>Popular this week</span>
                 </div>
                 {getPopularLists().filter(l => l.userId !== 'me').slice(0, 5).map(list => {
                   const user = USERS[list.userId];
